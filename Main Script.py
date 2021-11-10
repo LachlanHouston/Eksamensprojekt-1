@@ -38,7 +38,6 @@ def computeFinalGrades(grades):
     pdGrades = pd.read_csv(grades, delimiter=";", header=None)
     npGrades = np.array(pdGrades)
     gradesFinal = np.zeros(np.shape(npGrades)[0])
-    notLowest = np.zeros(len(npGrades)-1)
     
     # For loop that goes through all the rows
     for i in range (len(npGrades)):
@@ -50,13 +49,14 @@ def computeFinalGrades(grades):
             
             gradesFinal[i] = npGrades[i]
             
-        else:  
+        else:
+            lowestRemoved = np.zeros(np.shape(npGrades)[1]-1)    
             for j in range(np.shape(npGrades)[1]-1):
                 
-                lowestRemoved = np.zeros(np.shape(npGrades)[1]-1)
+                
                 
                 lowestGrade = np.min(npGrades[i,:])
-                
+                print(lowestGrade)
                 if npGrades[i,j] != lowestGrade:
                     lowestRemoved[j] = npGrades[i,j]
                 
