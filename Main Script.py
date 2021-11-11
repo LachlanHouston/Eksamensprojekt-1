@@ -9,7 +9,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # An array is created with all the grades from the 7-step scale
-roundGrades = np.array([-3,0,2,4,7,10,12])
 
 # =============================================================================
 # 1: Round Grade function:
@@ -87,51 +86,53 @@ def computeFinalGrades(grades):
 # =============================================================================
 # 3: Grades Plot function:
 # =============================================================================
-# def gradesPlot(grades):
+def gradesPlot(grades):
 
 # Plot 1: Final Grades
 # =============================================================================
-plotData = computeFinalGrades("test1.csv")
-l = np.zeros(len(roundGrades))
-for i in range(len(roundGrades)):
-    l[i] = np.sum(plotData == roundGrades[i])
+
+    l = np.zeros(len(roundGrades))
+    for i in range(len(roundGrades)):
+        l[i] = np.sum(grades == roundGrades[i])
+        
     
-
-# Designing and running the plot
-colors = ["r","g","b","m","c","peru","yellow"]
-for i in range(len(roundGrades)):
-    plt.bar(str(roundGrades[i]), l[i], color=colors[i])
-
-plt.title("Final Grades")
-plt.xlabel("Grade on the 7-step scale")
-plt.ylabel("Number of students")
-plt.xlim([-0.5, 7])
-plt.ylim([0, np.max(l)+0.3])
-plt.show()
+    # Designing and running the plot
+    colors = ["r","g","b","m","c","peru","yellow"]
+    for i in range(len(roundGrades)):
+        plt.bar(str(roundGrades[i]), l[i], color=colors[i])
+    
+    plt.title("Final Grades")
+    plt.xlabel("Grade on the 7-step scale")
+    plt.ylabel("Number of students")
+    plt.xlim([-0.5, 7])
+    plt.ylim([0, np.max(l)+0.3])
+    plt.show()
+    
+    return
 
 
 
 # Plot 2: Grades per Assignment
 # =============================================================================
 
-pdGrades = pd.read_csv("test1.csv", delimiter=";", header=None)
-npGrades = np.array(pdGrades)
+# pdGrades = pd.read_csv("test1.csv", delimiter=";", header=None)
+# npGrades = np.array(pdGrades)
 
-dim0 = np.shape(npGrades)[0]
-dim1 = np.shape(npGrades)[1]
+# dim0 = np.shape(npGrades)[0]
+# dim1 = np.shape(npGrades)[1]
 
-# Number of assignments on the x axis
-Assignment_nr = np.zeros(np.shape(npGrades)[1])
-for i in range(len(Assignment_nr)):
-    Assignment_nr[i] = i+1
+# # Number of assignments on the x axis
+# Assignment_nr = np.zeros(np.shape(npGrades)[1])
+# for i in range(len(Assignment_nr)):
+#     Assignment_nr[i] = i+1
 
-# Going through students
-for i in range(dim0):
+# # Going through students
+# for i in range(dim0):
     
-    # Going through assignments
-    for j in range(dim1):
-        xy = np.array(Assignment_nr[j],npGrades[j,i])
-print(xy)
+#     # Going through assignments
+#     for j in range(dim1):
+#         xy = np.array(Assignment_nr[j],npGrades[j,i])
+# print(xy)
 
 
 
@@ -144,40 +145,42 @@ print(xy)
 # =============================================================================
 # 4: Main Script
 # =============================================================================
-while True:   
-    print("Start")
-    # The input is converted to a pandas matrix and a numpy array
-    pdGrades = pd.read_csv("test1.csv", delimiter=",")
-    npGrades = np.array(pdGrades)
+# while True:   
+print("Start")
+# The input is converted to a pandas matrix and a numpy array
+pdGrades = pd.read_csv("test1.csv", delimiter=",")
+npGrades = np.array(pdGrades)
+roundGrades = np.array([-3,0,2,4,7,10,12])
+
+studentID = npGrades[:,0]
+print(studentID)
+
+gradesData = pdGrades.drop(['StudentID',"Name"],axis = 1)
+npgradesData = np.array(gradesData)
+
+print(gradesData)
+
+for i in range(len(npGrades)):
+    for x in range(len(npGrades)):
+        if x == i:
+            None
+        elif studentID[i] == studentID[x]:
+            print("Row",i,"and row",x, "are identical")
+            studentID[i] = "Error"
+shape = np.shape(npgradesData)
+
+for i in range(shape[0]):
+    for x in range(shape[1]):
+        if npgradesData[x,i] not in roundGrades:
+            print(npgradesData[x,i], "is an errornous grade type")
+            
+gradesPlot(npGrades)
+
+print(studentID)
     
-    studentID = npGrades[:,0]
-    print(studentID)
+    # print("Enter '5' to quit")
+    # userInput = input()
     
-    gradesData = pdGrades.drop(['StudentID',"Name"],axis = 1)
-    # gradesData = pdGrades.drop("Name",axis = 1)
-    
-    print(gradesData)
-    
-    
-    npGradesData = np.array(gradesData)
-    
-    for i in range(len(npGrades)):
-        for x in range(len(npGrades)):
-            if x == i:
-                None
-            elif studentID[i] == studentID[x]:
-                print("Row",i,"and row",x, "are identical")
-                studentID[i] = "Error"
-    
-    print(studentID)
-    print(computeFinalGrades(npGradesData))
-    
-    print("Enter '5' to quit")
-    userInput = input()
-    
-    if userInput == "5":
-        break
-    userInput = input()
-    
-    if userInput == "5":
-        break
+    # if userInput == "5":
+    #     break
+    # userInput = input()
