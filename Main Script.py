@@ -45,40 +45,36 @@ def roundGrade(grades):
 # =============================================================================
 def computeFinalGrades(grades):
     
-    # The input is converted to a pandas matrix and a numpy array
-    pdGrades = pd.read_csv(grades, delimiter=";", header=None)
-    npGrades = np.array(pdGrades)
-    
     # An empty array is created, which is going to contain the final grade for each student
-    gradesFinal = np.zeros(np.shape(npGrades)[0])
+    gradesFinal = np.zeros(np.shape(grades)[0])
     
     # Creating a for loop that goes through all the rows
-    for i in range (len(npGrades)):
+    for i in range (len(grades)):
         
         # If a student is given at least one -3 for an assignment, the final grade is set to -3
-        if -3 in npGrades[i,:]:
+        if -3 in grades[i,:]:
             gradesFinal[i] = -3
         
         # If a student is given just one grade, that is the final grade for that student
-        if len(npGrades) == 1:
+        if len(grades) == 1:
             
-            gradesFinal[i] = npGrades[i]
+            gradesFinal[i] = grades[i]
             
         # If a student is given more than one grade, the lowest grade is removed and the mean is computed from the remaining
         else:
             
             # An empty array is created
-            lowestRemoved = np.zeros(np.shape(npGrades)[1]-1)    
+            lowestRemoved = np.zeros(np.shape(grades)[1]-1)    
             
             # Creating a for loop that goes through all the grades of the i'th student
-            for j in range(np.shape(npGrades)[1]-1):
+            for j in range(np.shape(grades)[1]-1):
                 
                 # The lowest grade for the i'th student is assigned a variable
-                lowestGrade = np.min(npGrades[i,:])
+                lowestGrade = np.min(grades[i,:])
                 
                 # Putting all the grades except the lowest grade into an array
-                if npGrades[i,j] != lowestGrade:
-                    lowestRemoved[j] = npGrades[i,j]
+                if grades[i,j] != lowestGrade:
+                    lowestRemoved[j] = grades[i,j]
             
             # Computing the mean grade, having removed the lowest grade, for each student, and putting them into an array
             gradesFinal[i] = np.mean(lowestRemoved)
@@ -87,9 +83,6 @@ def computeFinalGrades(grades):
             gradesFinal = roundGrade(gradesFinal)
         
     return gradesFinal
-
-print(computeFinalGrades("test1.csv"))
-
 
 # =============================================================================
 # 3: Grades Plot function:
@@ -125,3 +118,23 @@ plt.show()
 # =============================================================================
 # 4: Main Script
 # =============================================================================
+while True:   
+    print("Start")
+    # The input is converted to a pandas matrix and a numpy array
+    pdGrades = pd.read_csv("test1.csv", delimiter=",")
+    print(pdGrades)
+    
+    gradesData = pdGrades.drop(['StudentID',"Name"],axis = 1)
+    # gradesData = pdGrades.drop("Name",axis = 1)
+    
+    print(gradesData)
+    
+    
+    npGradesData = np.array(gradesData)
+    print(computeFinalGrades(npGradesData))
+    
+    print("Enter '5' to quit")
+    userInput = input()
+    
+    if userInput == "5":
+        break
