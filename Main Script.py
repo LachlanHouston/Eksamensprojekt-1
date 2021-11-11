@@ -122,7 +122,10 @@ while True:
     print("Start")
     # The input is converted to a pandas matrix and a numpy array
     pdGrades = pd.read_csv("test1.csv", delimiter=",")
-    print(pdGrades)
+    npGrades = np.array(pdGrades)
+    
+    studentID = npGrades[:,0]
+    print(studentID)
     
     gradesData = pdGrades.drop(['StudentID',"Name"],axis = 1)
     # gradesData = pdGrades.drop("Name",axis = 1)
@@ -131,9 +134,23 @@ while True:
     
     
     npGradesData = np.array(gradesData)
+    
+    for i in range(len(npGrades)):
+        for x in range(len(npGrades)):
+            if x == i:
+                None
+            elif studentID[i] == studentID[x]:
+                print("Row",i,"and row",x, "are identical")
+                studentID[i] = "Error"
+    
+    print(studentID)
     print(computeFinalGrades(npGradesData))
     
     print("Enter '5' to quit")
+    userInput = input()
+    
+    if userInput == "5":
+        break
     userInput = input()
     
     if userInput == "5":
