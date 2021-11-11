@@ -89,7 +89,8 @@ def computeFinalGrades(grades):
 # =============================================================================
 # def gradesPlot(grades):
 
-
+# Plot 1: Final Grades
+# =============================================================================
 plotData = computeFinalGrades("test1.csv")
 l = np.zeros(len(roundGrades))
 for i in range(len(roundGrades)):
@@ -101,12 +102,37 @@ colors = ["r","g","b","m","c","peru","yellow"]
 for i in range(len(roundGrades)):
     plt.bar(str(roundGrades[i]), l[i], color=colors[i])
 
-plt.title("Final grades")
+plt.title("Final Grades")
 plt.xlabel("Grade on the 7-step scale")
 plt.ylabel("Number of students")
 plt.xlim([-0.5, 7])
 plt.ylim([0, np.max(l)+0.3])
 plt.show()
+
+
+
+# Plot 2: Grades per Assignment
+# =============================================================================
+
+pdGrades = pd.read_csv("test1.csv", delimiter=";", header=None)
+npGrades = np.array(pdGrades)
+
+dim0 = np.shape(npGrades)[0]
+dim1 = np.shape(npGrades)[1]
+
+# Number of assignments on the x axis
+Assignment_nr = np.zeros(np.shape(npGrades)[1])
+for i in range(len(Assignment_nr)):
+    Assignment_nr[i] = i+1
+
+# Going through students
+for i in range(dim0):
+    
+    # Going through assignments
+    for j in range(dim1):
+        xy = np.array(Assignment_nr[j],npGrades[j,i])
+print(xy)
+
 
 
 
