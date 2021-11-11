@@ -1,5 +1,7 @@
-﻿4;7;7;12;4;2
-2;-3;10;7;10;4
-0;2;10;4;7;4
-12;12;10;7;10;0
-7;4;2;2;2;7
+﻿StudentID,Name,Assignment1,Assignment2,Assignment3,Assignment4,Assignment5,Assignment6
+s214593,Lachlan Houston,4,7,7,12,4,2
+s114593,Faxe Pizzaria,4,2,-3,10,7,1
+s410593,Mette Frederiksen,0,2,10,4,7,4
+s010593,Frederik Ravnborg,10,12,12,10,7,0
+s717593,Frida Marie,7,7,4,2,2,7
+s410593,Honax,0,4,4,2,0,0
