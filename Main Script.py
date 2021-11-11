@@ -146,19 +146,31 @@ def gradesPlot(grades):
 # =============================================================================
 # 4: Main Script
 # =============================================================================
+# Initialize by asking for file name of data
+print("Please type the name of the file (including .csv)","\n")
+# filename = input()
+filename = "test1.csv"
+
+# Split the data file into seperated rows and collumns, and load into a numpy array
+pdGrades = pd.read_csv(filename, delimiter=",")
+npGrades = np.array(pdGrades)
+
+
 while True:
     print(" ","You have the following options:"," ", "1) Load data from file","2) See errors in data", "3) Generate data plots from file data","5) Quit the program",sep='\n')
     userInput = input()
     
     if userInput == "1":
+        
+        # Ask for filename
         print("Please type the name of the file (including .csv)","\n")
+        
         # filename = input()
         filename = "test1.csv"
         
+        # Split the data file into seperated rows and collumns, and load into a numpy array
         pdGrades = pd.read_csv(filename, delimiter=",")
         npGrades = np.array(pdGrades)
-        
-        print(roundGrade(npGrades))
         
     # The input is converted to a pandas matrix and a numpy array
     roundGrades = np.array([-3,0,2,4,7,10,12])
