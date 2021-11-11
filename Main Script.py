@@ -155,7 +155,7 @@ filename = "test1.csv"
 pdGrades = pd.read_csv(filename, delimiter=",")
 npGrades = np.array(pdGrades)
 
-
+# Main loop initialized
 while True:
     print(" ","You have the following options:"," ", "1) Load data from file","2) See errors in data", "3) Generate data plots from file data","5) Quit the program",sep='\n')
     userInput = input()
