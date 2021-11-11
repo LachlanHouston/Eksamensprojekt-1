@@ -145,42 +145,82 @@ def gradesPlot(grades):
 # =============================================================================
 # 4: Main Script
 # =============================================================================
-# while True:   
-print("Start")
-# The input is converted to a pandas matrix and a numpy array
-pdGrades = pd.read_csv("test1.csv", delimiter=",")
-npGrades = np.array(pdGrades)
-roundGrades = np.array([-3,0,2,4,7,10,12])
-
-studentID = npGrades[:,0]
-print(studentID)
-
-gradesData = pdGrades.drop(['StudentID',"Name"],axis = 1)
-npgradesData = np.array(gradesData)
-
-print(gradesData)
-
-for i in range(len(npGrades)):
-    for x in range(len(npGrades)):
-        if x == i:
-            None
-        elif studentID[i] == studentID[x]:
-            print("Row",i,"and row",x, "are identical")
-            studentID[i] = "Error"
-shape = np.shape(npgradesData)
-
-for i in range(shape[0]):
-    for x in range(shape[1]):
-        if npgradesData[x,i] not in roundGrades:
-            print(npgradesData[x,i], "is an errornous grade type")
+while True:   
+    print("Start")
+    # The input is converted to a pandas matrix and a numpy array
+    pdGrades = pd.read_csv("test1.csv", delimiter=",")
+    npGrades = np.array(pdGrades)
+    roundGrades = np.array([-3,0,2,4,7,10,12])
+    
+    errorIndexID = np.array([])
+    errorIndexGrades = np.array([])
+    
+    studentID = npGrades[:,0]
+    print(studentID)
+    
+    gradesData = pdGrades.drop(['StudentID',"Name"],axis = 1)
+    npgradesData = np.array(gradesData)
+    
+    print(" ","You have the following options:"," ", "1) Load data from file","2) See errors in data", "3) Generate data plots from file data","5) Quit the program",sep='\n')
+    userInput = input()
+    
+    # If user chooses "2", lets them see errors and remove them
+    if userInput == "2":
+        
+        # 
+        while True:
+            for i in range(len(npGrades)):
+                for j in range(len(npGrades)):
+                    if j == i:
+                        None
+                    elif studentID[i] == studentID[j]:
+                        print("Row",i,"and row",j, "are identical")
+                        studentID[i] = "Error"
+                        errorIndexID = np.append(errorIndexID, i)
             
-gradesPlot(npGrades)
+            shape = np.shape(npgradesData)
+            
+            for i in range(shape[0]):
+                for x in range(shape[1]):
+                    if npgradesData[x,i] not in roundGrades:
+                        print(npgradesData[x,i], "is an errornous grade type")
+                        errorIndexGrades = np.append(errorIndexGrades, x)
+            print(errorIndexGrades)
+            print("Do you want to delete the errornous rows/collumns?","1) Yes","2) No",sep='\n')
+            choice = input()
+            if choice == "1" or choice == "yes":
+                for i in range(len(errorIndexID)):
+                    try:
+                        pdGrades = pdGrades.drop(errorIndexID[i],axis=0)
+                    except KeyError:
+                        None
+                    else:
+                        print("Row", errorIndexID[i], "has been removed")
+                    
+                for x in range(len(errorIndexGrades)):
+                    try:
+                        pdGrades = pdGrades.drop(errorIndexGrades[x],axis=0)
+                    except KeyError:
+                        None
+                    else:
+                        print("Row", errorIndexGrades[x], "has been removed")
+            
+                pdGrades = pdGrades.reset_index(drop=True)
+                npGrades = np.array(pdGrades)
+                break
+                
+            elif choice == "2" or choice == "no":
+                None
+                break
+                
+            else:
+                print("You have entered a wrong input, please try again")
+    
+    print(npGrades)
+    
+    if userInput == "3":
+        gradesPlot(npGrades)
 
-print(studentID)
     
-    # print("Enter '5' to quit")
-    # userInput = input()
-    
-    # if userInput == "5":
-    #     break
-    # userInput = input()
+    if userInput == "5":
+        break
