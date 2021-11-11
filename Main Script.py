@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+# An array is created with all the grades from the 7-step scale
 roundGrades = np.array([-3,0,2,4,7,10,12])
 
 # =============================================================================
@@ -15,17 +16,27 @@ roundGrades = np.array([-3,0,2,4,7,10,12])
 # =============================================================================
 def roundGrade(grades):
     
+    # An empty array is created, which is going to contain the rounded grades
     gradesRounded = np.zeros(len(grades))
+    
+    # An empty array is created
     smallestDifIndex = np.zeros(len(grades))
+    
+    # A for loop is created, which goes through all the grades in the function input
     for i in range(len(grades)):
         
+        # An array, containing the differences between the i'th element of the function input and each round grade, is created
         dif = np.abs(roundGrades - grades[i])
+        
+        # The index of the round grade with the smallest difference to the i'th grade is put into an array
         smallestDifIndex[i] = dif.argmin()
+        
+        # The round grades corresponding to the indexes are put into an array
         gradesRounded[i] = int(roundGrades[int(smallestDifIndex[i])])
         
     return gradesRounded
  
-# print(roundGrade(np.array([-2,0,3,5,5,6,6,2.3,6,3,7,9,11,12])))
+print(roundGrade(np.array([-2,0,3,5,5,6,6,2.3,6,3,7,9,11,12])))
 
 
 
@@ -33,9 +44,12 @@ def roundGrade(grades):
 # 2: Final Grade function:
 # =============================================================================
 def computeFinalGrades(grades):
-
+    
+    # The input is converted to a pandas matrix and a numpy array
     pdGrades = pd.read_csv(grades, delimiter=";", header=None)
     npGrades = np.array(pdGrades)
+    
+    
     gradesFinal = np.zeros(np.shape(npGrades)[0])
     
     # For loop that goes through all the rows
@@ -51,7 +65,6 @@ def computeFinalGrades(grades):
         else:
             lowestRemoved = np.zeros(np.shape(npGrades)[1]-1)    
             for j in range(np.shape(npGrades)[1]-1):
-                
                 
                 
                 lowestGrade = np.min(npGrades[i,:])
@@ -97,9 +110,9 @@ plt.show()
 
 
 #     return
+
+
+
 # =============================================================================
-# Main Script:
+# 4: Main Script
 # =============================================================================
-while (True):
-    None
-    break
