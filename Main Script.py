@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 # =============================================================================
 def roundGrade(grades):
     
+    roundGrades = np.array([-3,0,2,4,7,10,12])
     # An empty array is created, which is going to contain the rounded grades
     gradesRounded = np.zeros(len(grades))
     
@@ -145,78 +146,102 @@ def gradesPlot(grades):
 # =============================================================================
 # 4: Main Script
 # =============================================================================
-while True:   
-    print("Start")
+while True:
+    print(" ","You have the following options:"," ", "1) Load data from file","2) See errors in data", "3) Generate data plots from file data","5) Quit the program",sep='\n')
+    userInput = input()
+    
+    if userInput == "1":
+        print("Please type the name of the file (including .csv)","\n")
+        # filename = input()
+        filename = "test1.csv"
+        
+        pdGrades = pd.read_csv(filename, delimiter=",")
+        npGrades = np.array(pdGrades)
+        
+        print(roundGrade(npGrades))
+        
     # The input is converted to a pandas matrix and a numpy array
-    pdGrades = pd.read_csv("test1.csv", delimiter=",")
-    npGrades = np.array(pdGrades)
     roundGrades = np.array([-3,0,2,4,7,10,12])
     
     errorIndexID = np.array([])
     errorIndexGrades = np.array([])
     
     studentID = npGrades[:,0]
-    print(studentID)
     
     gradesData = pdGrades.drop(['StudentID',"Name"],axis = 1)
     npgradesData = np.array(gradesData)
     
-    print(" ","You have the following options:"," ", "1) Load data from file","2) See errors in data", "3) Generate data plots from file data","5) Quit the program",sep='\n')
-    userInput = input()
-    
     # If user chooses "2", lets them see errors and remove them
     if userInput == "2":
         
-        # 
+        # A loop to ensure a valid input
         while True:
+            
+            # A loop that checks through every element of StudentID and replaces duplicates with "error"
             for i in range(len(npGrades)):
                 for j in range(len(npGrades)):
+                    
+                    # Skips comparing elements with themselves
                     if j == i:
                         None
+                        
+                    
                     elif studentID[i] == studentID[j]:
                         print("Row",i,"and row",j, "are identical")
                         studentID[i] = "Error"
+                        
+                        # Stores the placement of the error in an array
                         errorIndexID = np.append(errorIndexID, i)
             
+            # Saves the shape data in a variable
             shape = np.shape(npgradesData)
             
+            # A loop that checks through every element and compares it to the list of allowed grades
             for i in range(shape[0]):
                 for x in range(shape[1]):
                     if npgradesData[x,i] not in roundGrades:
                         print(npgradesData[x,i], "is an errornous grade type")
+                        
+                        # Stores the placement of the error in an array
                         errorIndexGrades = np.append(errorIndexGrades, x)
-            print(errorIndexGrades)
+                        
+            # Asks the user if they want to delete the rows with errors
             print("Do you want to delete the errornous rows/collumns?","1) Yes","2) No",sep='\n')
             choice = input()
+            
             if choice == "1" or choice == "yes":
+                
+                # Removes the rows that contain duplicate studentID's
                 for i in range(len(errorIndexID)):
                     try:
                         pdGrades = pdGrades.drop(errorIndexID[i],axis=0)
                     except KeyError:
                         None
                     else:
-                        print("Row", errorIndexID[i], "has been removed")
+                        print("Row", errorIndexID[i], "has been removed","",sep='\n')
                     
+                # Removes the rows with incorrect grade inputs
                 for x in range(len(errorIndexGrades)):
                     try:
                         pdGrades = pdGrades.drop(errorIndexGrades[x],axis=0)
                     except KeyError:
                         None
                     else:
-                        print("Row", errorIndexGrades[x], "has been removed")
-            
+                        print("Row", errorIndexGrades[x], "has been removed","",sep='\n')
+                
+                # Resets the index and stores the new data in a numpy array
                 pdGrades = pdGrades.reset_index(drop=True)
                 npGrades = np.array(pdGrades)
                 break
-                
+            
+            # Do nothing if input is "2" or "no"
             elif choice == "2" or choice == "no":
                 None
                 break
-                
+            
+            # Wrong input given, loop restarts
             else:
-                print("You have entered a wrong input, please try again")
-    
-    print(npGrades)
+                print("You have entered a wrong input, please try again","",sep='\n')
     
     if userInput == "3":
         gradesPlot(npGrades)
