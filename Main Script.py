@@ -15,7 +15,6 @@ import matplotlib.pyplot as plt
 # =============================================================================
 def roundGrade(grades):
     
-    roundGrades = np.array([-3,0,2,4,7,10,12])
     # An empty array is created, which is going to contain the rounded grades
     gradesRounded = np.zeros(len(grades))
     
@@ -147,6 +146,8 @@ def gradesPlot(grades):
 # 4: Main Script
 # =============================================================================
 # Initialize by asking for file name of data
+roundGrades = np.array([-3,0,2,4,7,10,12])
+
 print("Please type the name of the file (including .csv)","\n")
 # filename = input()
 filename = "test1.csv"
@@ -154,10 +155,15 @@ filename = "test1.csv"
 # Split the data file into seperated rows and collumns, and load into a numpy array
 pdGrades = pd.read_csv(filename, delimiter=",")
 npGrades = np.array(pdGrades)
+grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
+grades = grades.reset_index(drop=True)
+grades = np.array(grades)
+
+print(npGrades)
 
 # Main loop initialized
 while True:
-    print(" ","You have the following options:"," ", "1) Load data from file","2) See errors in data", "3) Generate data plots from file data","5) Quit the program",sep='\n')
+    print(" ","You have the following options:"," ", "1) Load data from file","2) See errors in data", "3) Generate data plots from file data","4) Grades list","5) Quit the program",sep='\n')
     userInput = input()
     
     if userInput == "1":
@@ -171,17 +177,19 @@ while True:
         # Split the data file into seperated rows and collumns, and load into a numpy array
         pdGrades = pd.read_csv(filename, delimiter=",")
         npGrades = np.array(pdGrades)
+        grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
+        grades = grades.reset_index(drop=True)
+        grades = np.array(grades)
         
     # The input is converted to a pandas matrix and a numpy array
-    roundGrades = np.array([-3,0,2,4,7,10,12])
     
     errorIndexID = np.array([])
     errorIndexGrades = np.array([])
     
     studentID = npGrades[:,0]
     
-    gradesData = pdGrades.drop(['StudentID',"Name"],axis = 1)
-    npgradesData = np.array(gradesData)
+    
+    npgradesData = np.array(grades)
     
     # If user chooses "2", lets them see errors and remove them
     if userInput == "2":
@@ -218,7 +226,7 @@ while True:
                         errorIndexGrades = np.append(errorIndexGrades, x)
                         
             # Asks the user if they want to delete the rows with errors
-            print("Do you want to delete the errornous rows/collumns?","1) Yes","2) No",sep='\n')
+            print("Do you want to delete the errornous rows?","1) Yes","2) No",sep='\n')
             choice = input()
             
             if choice == "1" or choice == "yes":
@@ -257,6 +265,9 @@ while True:
     
     if userInput == "3":
         gradesPlot(npGrades)
+        
+    if userInput == "4":
+        gradesList = roundGrade(grades)
 
     
     if userInput == "5":
