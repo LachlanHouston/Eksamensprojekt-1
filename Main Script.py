@@ -267,7 +267,7 @@ while True:
                     except KeyError:
                         None
                     else:
-                        print("Row", int(errorIndexID[i]), "has been removed","",sep=' ')
+                        print("Row ", int(errorIndexID[i]), " has been removed (", studentName[int(errorIndexID[i])], ")",sep='')
                     
                 # Removes the rows with incorrect grade inputs
                 for x in range(len(errorIndexGrades)):
@@ -276,7 +276,7 @@ while True:
                     except KeyError:
                         None
                     else:
-                        print("Row", int(errorIndexGrades[x]), "has been removed","",sep=' ')
+                        print("Row ", int(errorIndexGrades[x]), " has been removed (", studentName[int(errorIndexGrades[x])], ")",sep='')
                 
                 # Resets the index and stores the new data in a numpy array
                 pdGrades = pdGrades.reset_index(drop=True)
