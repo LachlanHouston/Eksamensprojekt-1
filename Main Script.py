@@ -30,7 +30,7 @@ def roundGrade(grades):
         
         # An array, containing the differences between the i'th element of the function input and each round grade, is created
         dif = np.abs(roundGrades - grades[i])
-        
+        #print(dif)
         # The index of the round grade with the smallest difference to the i'th grade is put into an array
         smallestDifIndex[i] = dif.argmin()
         
@@ -166,7 +166,6 @@ def gradesPlot(grades):
     plt.legend(["Every assignment", "Mean of each assignment"], loc ="upper left")    
     plt.show()
 
-    return
 
 # =============================================================================
 # 4: Main Script
@@ -188,7 +187,7 @@ grades = np.array(grades)
 
 # Main loop initialized
 while True:
-    print(" ","You have the following options:"," ", "1) Load data from file","2) See errors in data", "3) Generate data plots from file data","4) Grades list","5) Quit the program",sep='\n')
+    print(" ","You have the following options:"," ", "1) Load data from file","2) Check for errors in data", "3) Generate plots from grade data","4) Grades list","5) Quit the program",sep='\n')
     userInput = input()
     
     if userInput == "1":
@@ -212,6 +211,7 @@ while True:
     errorIndexGrades = np.array([])
     
     studentID = npGrades[:,0]
+    studentName = npGrades[:,1]
     
     
     npgradesData = np.array(grades)
@@ -232,7 +232,7 @@ while True:
                         
                     
                     elif studentID[i] == studentID[j]:
-                        print("Row",i,"and row",j, "are identical")
+                        print(studentName[i],"and",studentName[j], "have identical student IDs (" + str(studentID[i]) + ")" )
                         studentID[i] = "Error"
                         
                         # Stores the placement of the error in an array
@@ -244,8 +244,8 @@ while True:
             # A loop that checks through every element and compares it to the list of allowed grades
             for i in range(shape[0]):
                 for x in range(shape[1]):
-                    if npgradesData[x,i] not in roundGrades:
-                        print(npgradesData[x,i], "is an errornous grade type")
+                    if npgradesData[i,x] not in roundGrades:
+                        print(npgradesData[i,x], "is an errornous grade")
                         
                         # Stores the placement of the error in an array
                         errorIndexGrades = np.append(errorIndexGrades, x)
