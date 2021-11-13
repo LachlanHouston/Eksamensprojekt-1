@@ -118,7 +118,6 @@ def gradesPlot(grades):
     plt.xlim([-0.5, 6.5])
     plt.ylim([0, np.max(y_axis)+0.3])
     plt.show()
-    
 
 # Plot 2: Grades per Assignment
     # Defining the number of students and the number of assignments as the row and column dimension of of our matrix
@@ -162,7 +161,6 @@ def gradesPlot(grades):
     for i in range(nrOfAs):
         AsMean[i] = np.mean(np.array(grades[:,i]))
     
-    
     # Designing and running the plot
     plt.plot(xAxisDeviated,yAxisDeviated,"o")
     plt.plot(asNr,AsMean)
@@ -173,9 +171,6 @@ def gradesPlot(grades):
     plt.show()
 
     return
-
-
-
 
 # =============================================================================
 # 4: Main Script
@@ -303,6 +298,5 @@ while True:
     if userInput == "4":
         gradesList = roundGrade(grades)
 
-    
     if userInput == "5":
         break
