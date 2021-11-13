@@ -7,6 +7,8 @@ Due: 03/12/2021
 
 
 import numpy as np
+from numpy import random
+
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -91,57 +93,63 @@ def computeFinalGrades(grades):
 def gradesPlot(grades):
 
 # Plot 1: Final Grades
-# =============================================================================
-    plot1Data = computeFinalGrades(grades)
 
-    l = np.zeros(len(roundGrades))
+    plotData = computeFinalGrades(grades)
+
+    y_Axis = np.zeros(len(roundGrades))
     for i in range(len(roundGrades)):
-        l[i] = np.sum(plot1Data == roundGrades[i])
+        y_Axis[i] = np.sum(plotData == roundGrades[i])
         
     
     # Designing and running the plot
     colors = ["r","g","b","m","c","peru","yellow"]
     for i in range(len(roundGrades)):
-        plt.bar(str(roundGrades[i]), l[i], color=colors[i])
+        plt.bar(str(roundGrades[i]), y_Axis[i], color=colors[i])
     
     plt.title("Final Grades")
     plt.xlabel("Grade on the 7-step scale")
     plt.ylabel("Number of students")
     plt.xlim([-0.5, 7])
-    plt.ylim([0, np.max(l)+0.3])
+    plt.ylim([0, np.max(y_Axis)+0.3])
     plt.show()
     
-    
-
-
 
 # Plot 2: Grades per Assignment
-# =============================================================================
+    
+    nrOfStudents = np.shape(grades)[0]
+    nrOfAs = np.shape(grades)[1]
+    
+    # Assignment number on the x axis
+    asNr = np.zeros(nrOfAs)    
+    for i in range(nrOfAs):
+        asNr[i] = i+1
 
+    xAxis = np.array([])
+    for i in range(nrOfAs):
+        a = np.ones(nrOfStudents)*(i+1)
+        xAxis = np.append([xAxis],[a])
     
-    dim0 = np.shape(grades)[0]
-    dim1 = np.shape(grades)[1]
     
-    # Number of assignments on the x axis
-    As_nr = np.zeros(np.shape(grades)[1])
-    for i in range(len(As_nr)):
-        As_nr[i] = i+1
+    yAxis = np.array([])
+    for i in range(nrOfAs):
+        yAxis = np.append([yAxis],[np.array(grades[:,i])])
    
-    x_axis = np.zeros(dim0*dim1)
-    As1 = np.array(grades[:,0])
-    print(As1)
+    xAxisDeviated = np.array(xAxis + [random.uniform(-0.1,0.1) for i in range(len(xAxis))])
+    yAxisDeviated = np.array(yAxis + [random.uniform(-0.1,0.1) for i in range(len(yAxis))])
+    
+    AsMean = np.zeros(nrOfAs)
+    for i in range(nrOfAs):
+        AsMean[i] = np.mean(np.array(grades[:,i]))
     
     
-    
-    
-    # # Going through students
-    # for i in range(dim0):
-        
-    #     # Going through assignments
-    #     for j in range(dim1):
-    #         xy = np.array(Assignment_nr[j],grades[j,i])
-    # print(xy)
-
+    # Designing and running the plot    
+    plt.plot(xAxisDeviated,yAxisDeviated,"o")
+    plt.plot(asNr,AsMean)
+    plt.title("Grades per assignment")
+    plt.xlabel("Assignment number")
+    plt.ylabel("Grade")    
+    plt.legend(["Every assignment", "Mean of each assignment"], loc ="upper left")    
+    plt.show()
 
     return
 
