@@ -28,7 +28,7 @@ def roundGrade(grades):
     smallestDifIndex = np.zeros(len(grades))
     
     # A for loop is created, which goes through all the grades in the function input
-    for i in range(shapeData[0]):
+    for i in range(len(grades)):
         
         # An array, containing the differences between the i'th element of the function input and each round grade, is created
         dif = np.abs(roundGrades - grades[i])
@@ -59,7 +59,7 @@ def computeFinalGrades(grades):
         # If a student is given just one grade, that is the final grade for that student
         if len(grades) == 1:
             
-            gradesFinal[i] = grades[i]
+            gradesFinal = grades
             
         # If a student is given more than one grade, the lowest grade is removed and the mean is computed from the remaining
         else:
@@ -297,16 +297,18 @@ while True:
         
     if userInput == "4":
         gradesList = np.zeros(shapeData)
-        finalGrades = np.array(computeFinalGrades(grades))
+        finalGrades = np.array(computeFinalGrades(npGrades))
 
         for i in range(shapeData[1]):
-            gradesList[i] = roundGrade(grades[i,:])
+            gradesList[i] = roundGrade(npGrades[i,:])
         
         gradesList = np.c_[gradesList,finalGrades]
+        
+        tempGrades = np.c_[npGrades, np.zeros(shapeData[0])]
+        for x in range(np.shape(gradesList)[1]):
+            tempGrades[:,x+2] = gradesList[:,x]
+
         sortedArray = npGrades[np.argsort(npGrades[:, 1])]
-        sortedArray = np.c_[sortedArray, np.zeros(shapeData[0])]
-        for x in range(len(gradesList)):
-            sortedArray[:,x+2] = gradesList[:,x]
         
         print(sortedArray)
         
