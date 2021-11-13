@@ -5,9 +5,7 @@ By: Lachlan Houston (s214593) og Frederik Ravnborg (s204078)
 Due: 03/12/2021
 """
 
-print("hej")
 
-import hej
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -94,10 +92,11 @@ def gradesPlot(grades):
 
 # Plot 1: Final Grades
 # =============================================================================
+    plot1Data = computeFinalGrades(grades)
 
     l = np.zeros(len(roundGrades))
     for i in range(len(roundGrades)):
-        l[i] = np.sum(grades == roundGrades[i])
+        l[i] = np.sum(plot1Data == roundGrades[i])
         
     
     # Designing and running the plot
@@ -112,37 +111,40 @@ def gradesPlot(grades):
     plt.ylim([0, np.max(l)+0.3])
     plt.show()
     
-    return
+    
 
 
 
 # Plot 2: Grades per Assignment
 # =============================================================================
 
-# pdGrades = pd.read_csv("test1.csv", delimiter=";", header=None)
-# npGrades = np.array(pdGrades)
-
-# dim0 = np.shape(npGrades)[0]
-# dim1 = np.shape(npGrades)[1]
-
-# # Number of assignments on the x axis
-# Assignment_nr = np.zeros(np.shape(npGrades)[1])
-# for i in range(len(Assignment_nr)):
-#     Assignment_nr[i] = i+1
-
-# # Going through students
-# for i in range(dim0):
     
-#     # Going through assignments
-#     for j in range(dim1):
-#         xy = np.array(Assignment_nr[j],npGrades[j,i])
-# print(xy)
+    dim0 = np.shape(grades)[0]
+    dim1 = np.shape(grades)[1]
+    
+    # Number of assignments on the x axis
+    As_nr = np.zeros(np.shape(grades)[1])
+    for i in range(len(As_nr)):
+        As_nr[i] = i+1
+   
+    x_axis = np.zeros(dim0*dim1)
+    As1 = np.array(grades[:,0])
+    print(As1)
+    
+    
+    
+    
+    # # Going through students
+    # for i in range(dim0):
+        
+    #     # Going through assignments
+    #     for j in range(dim1):
+    #         xy = np.array(Assignment_nr[j],grades[j,i])
+    # print(xy)
 
 
+    return
 
-
-
-#     return
 
 
 
@@ -163,7 +165,6 @@ grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
 grades = grades.reset_index(drop=True)
 grades = np.array(grades)
 
-print(npGrades)
 
 # Main loop initialized
 while True:
@@ -268,7 +269,7 @@ while True:
                 print("You have entered a wrong input, please try again","",sep='\n')
     
     if userInput == "3":
-        gradesPlot(npGrades)
+        gradesPlot(grades)
         
     if userInput == "4":
         gradesList = roundGrade(grades)
