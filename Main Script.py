@@ -19,10 +19,10 @@ import matplotlib.pyplot as plt
 # =============================================================================
 def roundGrade(grades):
     
-    # An empty array is created, which is going to contain the rounded grades
+    # A zero array is created, which is going to contain the rounded grades
     gradesRounded = np.zeros(len(grades))
     
-    # An empty array is created
+    # A zero array is created
     smallestDifIndex = np.zeros(len(grades))
     
     # A for loop is created, which goes through all the grades in the function input
@@ -48,7 +48,7 @@ def roundGrade(grades):
 # =============================================================================
 def computeFinalGrades(grades):
     
-    # An empty array is created, which is going to contain the final grade for each student
+    # A zero array is created, which is going to contain the final grade for each student
     gradesFinal = np.zeros(np.shape(grades)[0])
     
     # Creating a for loop that goes through all the rows
@@ -66,7 +66,7 @@ def computeFinalGrades(grades):
         # If a student is given more than one grade, the lowest grade is removed and the mean is computed from the remaining
         else:
             
-            # An empty array is created
+            # A zero array is created
             lowestRemoved = np.zeros(np.shape(grades)[1]-1)    
             
             # Creating a for loop that goes through all the grades of the i'th student
@@ -93,56 +93,77 @@ def computeFinalGrades(grades):
 def gradesPlot(grades):
 
 # Plot 1: Final Grades
-
+    # Creating the data for plot 1 by computing the final grade for each student
     plotData = computeFinalGrades(grades)
-
-    y_Axis = np.zeros(len(roundGrades))
+    
+    # The y-axis is defined as a zero array
+    y_axis = np.zeros(len(roundGrades))
+    
+    # A for loop is used to put the number of occurences of each final grade into the y-axis array
     for i in range(len(roundGrades)):
-        y_Axis[i] = np.sum(plotData == roundGrades[i])
+        y_axis[i] = np.sum(plotData == roundGrades[i])
         
     
-    # Designing and running the plot
+    # Creating a list of colors that will be used for each bar in the plot
     colors = ["r","g","b","m","c","peru","yellow"]
-    for i in range(len(roundGrades)):
-        plt.bar(str(roundGrades[i]), y_Axis[i], color=colors[i])
     
+    # A for loop is used to define the bars in the plot with the round grade on the x-axis and the y-axis being the one we previously defined
+    for i in range(len(roundGrades)):
+        plt.bar(str(roundGrades[i]), y_axis[i], color=colors[i])
+    
+    # Designing and running the plot
     plt.title("Final Grades")
     plt.xlabel("Grade on the 7-step scale")
     plt.ylabel("Number of students")
-    plt.xlim([-0.5, 7])
-    plt.ylim([0, np.max(y_Axis)+0.3])
+    plt.xlim([-0.5, 6.5])
+    plt.ylim([0, np.max(y_axis)+0.3])
     plt.show()
     
 
 # Plot 2: Grades per Assignment
-    
+    # Defining the number of students and the number of assignments as the row and column dimension of of our matrix
     nrOfStudents = np.shape(grades)[0]
     nrOfAs = np.shape(grades)[1]
     
-    # Assignment number on the x axis
-    asNr = np.zeros(nrOfAs)    
+    # Creating an array containing the assignment numbers by using a for loop
+    asNr = np.zeros(nrOfAs)
     for i in range(nrOfAs):
         asNr[i] = i+1
 
+    # An empty array is created to be able to contain the x-axis elements
     xAxis = np.array([])
+    
+    # A for loop, that goes through each assignment, is initiated
     for i in range(nrOfAs):
-        a = np.ones(nrOfStudents)*(i+1)
-        xAxis = np.append([xAxis],[a])
+        
+        # Creating an array with the (i+1)'th assignment number repeated as many times as there are students
+        asNrX = np.ones(nrOfStudents)*(i+1)
+        
+        # Appending the array to xAxis so we end up having each assignment number repeated as many times as there are students
+        xAxis = np.append([xAxis],[asNrX])
     
-    
+    # An empty array is created to be able to contain the y-axis elements    
     yAxis = np.array([])
+    
+    # A for loop, that goes through each assignment, is initiated
     for i in range(nrOfAs):
+        
+        # Every grade for the every assignment is added to yAxis
         yAxis = np.append([yAxis],[np.array(grades[:,i])])
-   
+    
+    # A small number between -0.1 and 0.1 is added to each element of both axes to increase visibility in the plot
     xAxisDeviated = np.array(xAxis + [random.uniform(-0.1,0.1) for i in range(len(xAxis))])
     yAxisDeviated = np.array(yAxis + [random.uniform(-0.1,0.1) for i in range(len(yAxis))])
     
+    # An empty array is created to be able to contain the mean grade of each assignment
     AsMean = np.zeros(nrOfAs)
+    
+    # Using a for loop the mean grade of each assignment is put into the array
     for i in range(nrOfAs):
         AsMean[i] = np.mean(np.array(grades[:,i]))
     
     
-    # Designing and running the plot    
+    # Designing and running the plot
     plt.plot(xAxisDeviated,yAxisDeviated,"o")
     plt.plot(asNr,AsMean)
     plt.title("Grades per assignment")
