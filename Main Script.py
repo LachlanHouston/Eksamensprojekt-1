@@ -18,10 +18,11 @@ import matplotlib.pyplot as plt
 # 1: Round Grade function:
 # =============================================================================
 def roundGrade(grades):
+    grades = np.array(grades)
     
     # A zero array is created, which is going to contain the rounded grades
-    shapeData = np.shape(grades)
-    gradesRounded = np.zeros(shapeData)
+    # shapeData = np.shape(grades)
+    gradesRounded = np.zeros(len(grades))
     
     
     # A zero array is created
@@ -38,6 +39,8 @@ def roundGrade(grades):
         
         # The round grades corresponding to the indexes are put into an array
         gradesRounded[i] = int(roundGrades[int(smallestDifIndex[i])])
+    
+    print(gradesRounded)
         
     return gradesRounded
 
@@ -79,6 +82,7 @@ def computeFinalGrades(grades):
             
             # Computing the mean grade, having removed the lowest grade, for each student, and putting them into an array
             gradesFinal[i] = np.mean(lowestRemoved)
+            print(gradesFinal)
             
             # Using the roundGrade function to round the mean grades for each student
             gradesFinal = roundGrade(gradesFinal)
@@ -185,7 +189,7 @@ pdGrades = pd.read_csv(filename, delimiter=",")
 npGrades = np.array(pdGrades)
 grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
 grades = grades.reset_index(drop=True)
-grades = np.array(grades)
+# grades = np.array(grades)
 
 shapeData = np.shape(grades)
 
@@ -208,7 +212,7 @@ while True:
         npGrades = np.array(pdGrades)
         grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
         grades = grades.reset_index(drop=True)
-        grades = np.array(grades)
+        # grades = np.array(grades)
         
     # The input is converted to a pandas matrix and a numpy array
     
@@ -264,6 +268,7 @@ while True:
                 for i in range(len(errorIndexID)):
                     try:
                         pdGrades = pdGrades.drop(errorIndexID[i],axis=0)
+                        grades = grades.drop(errorIndexID[i],axis=0)
                     except KeyError:
                         None
                     else:
@@ -273,6 +278,7 @@ while True:
                 for x in range(len(errorIndexGrades)):
                     try:
                         pdGrades = pdGrades.drop(errorIndexGrades[x],axis=0)
+                        grades = grades.drop(errorIndexGrades[x],axis=0)
                     except KeyError:
                         None
                     else:
@@ -281,6 +287,8 @@ while True:
                 # Resets the index and stores the new data in a numpy array
                 pdGrades = pdGrades.reset_index(drop=True)
                 npGrades = np.array(pdGrades)
+                
+                # grades = grades.reset_index(drop=True)
                 break
             
             # Do nothing if input is "2" or "no"
@@ -300,7 +308,7 @@ while True:
         finalGrades = np.array(computeFinalGrades(npGrades))
 
         for i in range(shapeData[1]):
-            gradesList[i] = roundGrade(npGrades[i,:])
+            gradesList[i] = roundGrade(grades)
         
         gradesList = np.c_[gradesList,finalGrades]
         
