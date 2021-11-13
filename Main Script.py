@@ -20,7 +20,9 @@ import matplotlib.pyplot as plt
 def roundGrade(grades):
     
     # A zero array is created, which is going to contain the rounded grades
-    gradesRounded = np.zeros(len(grades))
+    shapeData = np.shape(grades)
+    gradesRounded = np.zeros(shapeData)
+    
     
     # A zero array is created
     smallestDifIndex = np.zeros(len(grades))
@@ -57,7 +59,7 @@ def computeFinalGrades(grades):
         # If a student is given just one grade, that is the final grade for that student
         if len(grades) == 1:
             
-            gradesFinal[i] = grades[i]
+            gradesFinal = grades
             
         # If a student is given more than one grade, the lowest grade is removed and the mean is computed from the remaining
         else:
@@ -184,6 +186,8 @@ grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
 grades = grades.reset_index(drop=True)
 grades = np.array(grades)
 
+shapeData = np.shape(grades)
+
 
 # Main loop initialized
 while True:
@@ -292,7 +296,21 @@ while True:
         gradesPlot(grades)
         
     if userInput == "4":
-        gradesList = roundGrade(grades)
+        gradesList = np.zeros(shapeData)
+        finalGrades = np.array(computeFinalGrades(npGrades))
 
+        for i in range(shapeData[1]):
+            gradesList[i] = roundGrade(npGrades[i,:])
+        
+        gradesList = np.c_[gradesList,finalGrades]
+        
+        tempGrades = np.c_[npGrades, np.zeros(shapeData[0])]
+        for x in range(np.shape(gradesList)[1]):
+            tempGrades[:,x+2] = gradesList[:,x]
+
+        sortedArray = npGrades[np.argsort(npGrades[:, 1])]
+        
+        print(sortedArray)
+        
     if userInput == "5":
         break
