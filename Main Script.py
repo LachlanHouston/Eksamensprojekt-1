@@ -175,8 +175,6 @@ def gradesPlot(grades):
 # Initialize by asking for file name of data
 roundGrades = np.array([-3,0,2,4,7,10,12])
 
-print("Please type the name of the file (including .csv)","\n")
-# filename = input()
 filename = "test1.csv"
 
 # Split the data file into seperated rows and collumns, and load into a numpy array
@@ -191,10 +189,11 @@ shapeData = np.shape(grades)
 
 # Main loop initialized
 while True:
-    print(" ","You have the following options:"," ", "1) Load data from file","2) Check for errors in data", "3) Generate plots from grade data","4) Grades list","5) Quit the program",sep='\n')
+    print(" ","You have the following options:"," ", "1) Load new data","2) Check for data errors", "3) Generate plots","4) Display list of grades","5) Quit the program",sep='\n')
     userInput = input()
+    userInput = userInput.lower()
     
-    if userInput == "1":
+    if userInput == "1" or userInput == "load data" or userInput == "load new data":
         
         # Ask for filename
         print("Please type the name of the file (including .csv)","\n")
@@ -221,7 +220,7 @@ while True:
     npgradesData = np.array(grades)
     
     # If user chooses "2", lets them see errors and remove them
-    if userInput == "2":
+    if userInput == "2" or userInput == "check for errors" or userInput == "check for data errors":
         
         # A loop to ensure a valid input
         while True:
@@ -249,14 +248,15 @@ while True:
             for i in range(shape[0]):
                 for x in range(shape[1]):
                     if npgradesData[i,x] not in roundGrades:
-                        print(npgradesData[i,x], "is an errornous grade")
+                        print(npgradesData[i,x], "is an errornous grade (" + str(studentName[i]) + "'s assignment " + str(x+1) + ")")
                         
                         # Stores the placement of the error in an array
                         errorIndexGrades = np.append(errorIndexGrades, x)
                         
             # Asks the user if they want to delete the rows with errors
-            print("Do you want to delete the errornous rows?","1) Yes","2) No",sep='\n')
+            print("\nDo you want to remove students with errornous grades?","1) Yes","2) No",sep='\n')
             choice = input()
+            choice = choice.lower()
             
             if choice == "1" or choice == "yes":
                 
@@ -267,7 +267,7 @@ while True:
                     except KeyError:
                         None
                     else:
-                        print("Row", errorIndexID[i], "has been removed","",sep='\n')
+                        print("Row", int(errorIndexID[i]), "has been removed","",sep=' ')
                     
                 # Removes the rows with incorrect grade inputs
                 for x in range(len(errorIndexGrades)):
@@ -276,7 +276,7 @@ while True:
                     except KeyError:
                         None
                     else:
-                        print("Row", errorIndexGrades[x], "has been removed","",sep='\n')
+                        print("Row", int(errorIndexGrades[x]), "has been removed","",sep=' ')
                 
                 # Resets the index and stores the new data in a numpy array
                 pdGrades = pdGrades.reset_index(drop=True)
@@ -290,17 +290,17 @@ while True:
             
             # Wrong input given, loop restarts
             else:
-                print("You have entered a wrong input, please try again","",sep='\n')
+                print("You have entered a wrong input, please try again\n")
     
-    if userInput == "3":
+    if userInput == "3" or userInput == "plots" or userInput == "generate plots":
         gradesPlot(grades)
         
-    if userInput == "4":
+    if userInput == "4" or userInput == "display list" or userInput == "display list of grades":
         gradesList = np.zeros(shapeData)
-        finalGrades = np.array(computeFinalGrades(npGrades))
+        finalGrades = np.array(computeFinalGrades(grades))
 
         for i in range(shapeData[1]):
-            gradesList[i] = roundGrade(npGrades[i,:])
+            gradesList[i] = roundGrade(grades[i,:])
         
         gradesList = np.c_[gradesList,finalGrades]
         
