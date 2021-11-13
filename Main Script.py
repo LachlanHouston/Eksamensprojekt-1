@@ -20,13 +20,15 @@ import matplotlib.pyplot as plt
 def roundGrade(grades):
     
     # A zero array is created, which is going to contain the rounded grades
-    gradesRounded = np.zeros(len(grades))
+    shapeData = np.shape(grades)
+    gradesRounded = np.zeros(shapeData)
+    
     
     # A zero array is created
     smallestDifIndex = np.zeros(len(grades))
     
     # A for loop is created, which goes through all the grades in the function input
-    for i in range(len(grades)):
+    for i in range(shapeData[0]):
         
         # An array, containing the differences between the i'th element of the function input and each round grade, is created
         dif = np.abs(roundGrades - grades[i])
@@ -185,6 +187,8 @@ grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
 grades = grades.reset_index(drop=True)
 grades = np.array(grades)
 
+shapeData = np.shape(grades)
+
 
 # Main loop initialized
 while True:
@@ -292,7 +296,19 @@ while True:
         gradesPlot(grades)
         
     if userInput == "4":
-        gradesList = roundGrade(grades)
+        gradesList = np.zeros(shapeData)
+        finalGrades = np.array(computeFinalGrades(grades))
 
+        for i in range(shapeData[1]):
+            gradesList[i] = roundGrade(grades[i,:])
+        
+        gradesList = np.c_[gradesList,finalGrades]
+        sortedArray = npGrades[np.argsort(npGrades[:, 1])]
+        sortedArray = np.c_[sortedArray, np.zeros(shapeData[0])]
+        for x in range(len(gradesList)):
+            sortedArray[:,x+2] = gradesList[:,x]
+        
+        print(sortedArray)
+        
     if userInput == "5":
         break
