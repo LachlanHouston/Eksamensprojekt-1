@@ -38,10 +38,6 @@ def roundGrade(grades):
         gradesRounded[i] = int(roundGrades[int(smallestDifIndex[i])])
         
     return gradesRounded
- 
-#print(roundGrade(np.array([-2,0,3,5,5,6,6,2.3,6,3,7,9,11,12])))
-
-
 
 # =============================================================================
 # 2: Final Grade function:
