@@ -310,7 +310,11 @@ while True:
 
         sortedArray = npGrades[np.argsort(npGrades[:, 1])]
         
-        print(sortedArray)
+        for i in range(np.shape(sortedArray)[0]-2):
+            print("\n", sortedArray[i,1], " (", sortedArray[i,0],"):", sep="")
+            print("    Assignment grades:", sortedArray[i,2:])
+            print("    Final grade:", int(computeFinalGrades(sortedArray[:,2:])[i]))
         
+                
     if userInput == "5":
         break
