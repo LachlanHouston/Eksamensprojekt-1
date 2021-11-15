@@ -165,7 +165,8 @@ def gradesPlot(grades):
     plt.title("Grades per assignment")
     plt.xlabel("Assignment number")
     plt.ylabel("Grade")    
-    plt.legend(["Every assignment", "Mean of each assignment"], loc ="upper left")    
+    plt.legend(["Every assignment of every student", "Mean grade of each assignment"], loc ="upper left")
+    plt.ylim([-3.5, np.max(yAxisDeviated)+4])     
     plt.show()
 
 
