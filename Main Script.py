@@ -330,4 +330,5 @@ while True:
         
                 
     if userInput == "5":
+        print("Bye")
         break
