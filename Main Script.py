@@ -34,7 +34,7 @@ def roundGrade(grades):
         
         # An array, containing the differences between the i'th element of the function input and each round grade, is created
         dif = np.abs(sevenstepGrades - grades[i])
-        #print(dif)
+
         # The index of the round grade with the smallest difference to the i'th grade is put into an array
         smallestDifIndex[i] = dif.argmin()
         
