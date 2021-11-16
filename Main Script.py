@@ -254,7 +254,7 @@ while True:
             # A loop that checks through every element and compares it to the list of allowed grades
             for i in range(shape[0]):
                 for x in range(shape[1]):
-                    if npgradesData[i,x] < -3 or npgradesData[i,x] > 12:
+                    if npgradesData[i,x] not in sevenstepGrades:
                         print(npgradesData[i,x], "is an errornous grade (" + str(studentName[i]) + "'s assignment " + str(x+1) + ")")
                         
                         # Stores the placement of the error in an array
