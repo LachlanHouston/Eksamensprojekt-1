@@ -15,6 +15,8 @@ import matplotlib.pyplot as plt
 
 # =============================================================================
 # 1: Round Grade function:
+    
+# A function that takes a vector of grades as input and rounds them to their closest valid grade
 # =============================================================================
 def roundGrade(grades):
     
@@ -45,6 +47,8 @@ def roundGrade(grades):
 
 # =============================================================================
 # 2: Final Grade function:
+    
+# A function that takes a matrix input and calculates a final grade based on some defined rules
 # =============================================================================
 def computeFinalGrades(grades):
     
@@ -85,11 +89,15 @@ def computeFinalGrades(grades):
             
             # Using the roundGrade function to round the mean grades for each student
             gradesFinal = roundGrade(gradesFinal)
-        
+    
+    # Returns a vector containing the students final grade
     return gradesFinal
 
 # =============================================================================
 # 3: Grades Plot function:
+    
+# A function that plots two different plots, one visualising final grade scores across all students in data set,
+# other visualising grade data over assignments, across all students
 # =============================================================================
 def gradesPlot(grades):
 
@@ -175,9 +183,14 @@ def gradesPlot(grades):
 
 # =============================================================================
 # 4: Main Script
+
+# A loop that contains an user interactive menu, that starts with loading specified data, afterwards a choice between loading new data, checking for errors in data,
+# generate plots over data, display grade lists sorted alphabetically, and lastly an option to quit the program
 # =============================================================================
+
 # Initialize by asking for file name of data
 sevenstepGrades = np.array([-3,0,2,4,7,10,12])
+
 
 while True:
     print("Please input a file name (including .csv)")
@@ -221,19 +234,24 @@ while True:
                 grades = grades.reset_index(drop=True)
                 grades = np.array(grades)
                 
+                # Update shapeData and break
                 shapeData = np.shape(grades)
                 break
     
+    # Takes input and directs to where the user wants to go
     print(" ","You have the following options:"," ", "1) Load new data","2) Check for data errors", "3) Generate plots","4) Display list of grades","5) Quit the program",sep='\n')
     userInput = input()
     userInput = userInput.lower()
+    print("")
     
+    # User can load new data file
     if userInput == "1" or userInput == "load data" or userInput == "load new data":
         while True:
         
             # Ask for filename
             print("Please type the name of the file (including .csv)","\n")
             
+            # Load data, if wrong file name given, loop back to user input
             try:
                 filename = input()
                 pdGrades = pd.read_csv(filename, delimiter=",")
@@ -246,23 +264,23 @@ while True:
                 grades = grades.reset_index(drop=True)
                 grades = np.array(grades)
                 
+                # Redefine matrix shape data
                 shapeData = np.shape(grades)
                 break
         
-    # The input is converted to a pandas matrix and a numpy array
-    
-    errorIndexID = np.array([])
-    errorIndexGrades = np.array([])
-    
-    studentID = npGrades[:,0]
-    studentName = npGrades[:,1]
-    
-    
-    npgradesData = np.array(grades)
-    
-    # If user chooses "2", lets them see errors and remove them
-    if userInput == "2" or userInput == "check for errors" or userInput == "check for data errors":
+    # User can see errors in data file, and can choose whether to delete data with error or not
+    elif userInput == "2" or userInput == "check for errors" or userInput == "check for data errors":
+        # ID- & Names data are saved seperately for later use
+        studentID = npGrades[:,0]
+        studentName = npGrades[:,1]
+        
+        # Further variable declation, anyErrors is used to hide the 'delete data' option when set to false
+        # errorIndexID & errorIndexGrades are arrays used to store index locations of data to delete
+        npgradesData = np.array(grades)
         anyErrors = False
+        errorIndexID = np.array([])
+        errorIndexGrades = np.array([])
+        
         # A loop to ensure a valid input
         while True:
             
@@ -274,7 +292,7 @@ while True:
                     if j == i:
                         None
                         
-                    
+                    # If student ID are identical, set first data entry studentID to 'error' so the pair doesn't get counted twice
                     elif studentID[i] == studentID[j]:
                         print(studentName[i],"and",studentName[j], "have identical student IDs (" + str(studentID[i]) + ")" )
                         studentID[i] = "Error"
@@ -282,23 +300,27 @@ while True:
                         # Stores the placement of the error in an array
                         errorIndexID = np.append(errorIndexID, i)
                         
+                        # Give option to delete studentID errors
                         anyErrors = True
             
             # Saves the shape data in a variable
-            shape = np.shape(npgradesData)
+            shapeData = np.shape(npgradesData)
             
             # A loop that checks through every element and compares it to the list of allowed grades
-            for i in range(shape[0]):
-                for x in range(shape[1]):
+            for i in range(shapeData[0]):
+                for x in range(shapeData[1]):
                     if npgradesData[i,x] not in sevenstepGrades:
                         print(npgradesData[i,x], "is an errornous grade (" + str(studentName[i]) + "'s assignment " + str(x+1) + ")")
                         
                         # Stores the placement of the error in an array
                         errorIndexGrades = np.append(errorIndexGrades, i)
                         
+                        # Give option to delete grade errors
                         anyErrors = True
             
+            # If errors are detected, gives option to delete data with error from set
             if anyErrors == True:            
+                
                 # Asks the user if they want to delete the rows with errors
                 print("\nDo you want to remove students with errornous grades/IDs?","1) Yes","2) No",sep='\n')
                 choice = input()
@@ -328,11 +350,11 @@ while True:
                     pdGrades = pdGrades.reset_index(drop=True)
                     npGrades = np.array(pdGrades)
                     grades = npGrades[:,2:]
-                    shapeData = np.shape(grades)
-
                     
+                    # Update matrix shape data
+                    shapeData = np.shape(grades)
                     break
-                
+            
                 # Do nothing if input is "2" or "no"
                 elif choice == "2" or choice == "no":
                     None
@@ -344,34 +366,29 @@ while True:
             
             elif anyErrors == False:
                 print("\nThere are no errors in the data")
-                
                 break
                 
-    
-    if userInput == "3" or userInput == "plots" or userInput == "generate plots":
+    # User generates plots and prints them
+    elif userInput == "3" or userInput == "plots" or userInput == "generate plots":
         gradesPlot(grades)
+    
+    # User access list over grades alphabetically sorted with final grade given
+    elif userInput == "4" or userInput == "display list" or userInput == "display list of grades":
         
-    if userInput == "4" or userInput == "display list" or userInput == "display list of grades":
-        gradesList = np.zeros(shapeData)
-        finalGrades = np.array(computeFinalGrades(grades))
-
-        for i in range(shapeData[0]):
-            gradesList[i] = roundGrade(grades[i,:])
-        
-        gradesList = np.c_[gradesList,finalGrades]
-        
-        tempGrades = np.c_[npGrades, np.zeros(shapeData[0])]
-        for x in range(np.shape(gradesList)[0]):
-            tempGrades[:,x+2] = gradesList[:,x]
-
+        # Sort an erray based 'npGrades' collumn of names, sorts alphabetically
         sortedArray = npGrades[np.argsort(npGrades[:, 1])]
         
+        # Print every data entry in following setup: "Name (string), StudentID (string):" "Every grade assignment: (list)" "Final grade: (number)"
         for i in range(np.shape(sortedArray)[0]):
             print("\n", sortedArray[i,1], " (", sortedArray[i,0],"):", sep="")
             print("    Assignment grades:", sortedArray[i,2:])
             print("    Final grade:", int(computeFinalGrades(sortedArray[:,2:])[i]))
         
-                
-    if userInput == "5":
+    # User quits the program, this is done by breaking out of main loop, ending the program            
+    elif userInput == "5" or userInput == "quit" or userInput == "quit the program":
         print("Bye")
         break
+    
+    # If wrong input is given
+    else:
+        print("You have entered an incorrect input, please try again")
