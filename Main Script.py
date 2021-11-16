@@ -12,7 +12,6 @@ from numpy import random
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# An array is created with all the grades from the 7-step scale
 
 # =============================================================================
 # 1: Round Grade function:
@@ -23,6 +22,7 @@ def roundGrade(grades):
     shapeData = np.shape(grades)
     gradesRounded = np.zeros(shapeData)
     
+    # An array is created with all the grades from the 7-step scale
     sevenstepGrades = np.array([-3,0,2,4,7,10,12])
     
     
@@ -202,6 +202,7 @@ while True:
 # Main loop initialized
 while True:
     
+    # Checks whether there are any rows in the data
     if np.shape(grades)[0] == 0:
         print("\nThere are no students in the dataset.")
         while True:
