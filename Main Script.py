@@ -201,6 +201,28 @@ while True:
 
 # Main loop initialized
 while True:
+    
+    if np.shape(grades)[0] == 0:
+        print("\nThere are no students in the dataset.")
+        while True:
+            print("Please input a file name (including .csv)")
+            try:
+                filename = input()
+                pdGrades = pd.read_csv(filename, delimiter=",")
+            except FileNotFoundError:
+                print("You have entered a incorrect file name, please try again")
+            
+            else:
+                # Split the data file into seperated rows and collumns, and load into a numpy array
+                pdGrades = pd.read_csv(filename, delimiter=",")
+                npGrades = np.array(pdGrades)
+                grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
+                grades = grades.reset_index(drop=True)
+                grades = np.array(grades)
+                
+                shapeData = np.shape(grades)
+                break
+    
     print(" ","You have the following options:"," ", "1) Load new data","2) Check for data errors", "3) Generate plots","4) Display list of grades","5) Quit the program",sep='\n')
     userInput = input()
     userInput = userInput.lower()
