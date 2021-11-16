@@ -50,6 +50,7 @@ def computeFinalGrades(grades):
     
     # A zero array is created, which is going to contain the final grade for each student
     gradesFinal = np.zeros(np.shape(grades)[0])
+    shapeData = np.shape(grades)
     
     # Creating a for loop that goes through all the rows
     for i in range (len(grades)):
@@ -59,9 +60,9 @@ def computeFinalGrades(grades):
             gradesFinal[i] = -3
         
         # If a student is given just one grade, that is the final grade for that student
-        if len(grades) == 1:
+        if shapeData[1] == 1:
             
-            gradesFinal = grades
+            gradesFinal = grades[0]
             
         # If a student is given more than one grade, the lowest grade is removed and the mean is computed from the remaining
         else:
@@ -197,21 +198,25 @@ while True:
     userInput = userInput.lower()
     
     if userInput == "1" or userInput == "load data" or userInput == "load new data":
+        while True:
         
-        # Ask for filename
-        print("Please type the name of the file (including .csv)","\n")
-        
-        # filename = input()
-        filename = "test1.csv"
-        
-        # Split the data file into seperated rows and collumns, and load into a numpy array
-        pdGrades = pd.read_csv(filename, delimiter=",")
-        npGrades = np.array(pdGrades)
-        grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
-        grades = grades.reset_index(drop=True)
-        grades = np.array(grades)
-        
-        shapeData = np.shape(grades)
+            # Ask for filename
+            print("Please type the name of the file (including .csv)","\n")
+            
+            try:
+                filename = input()
+                pdGrades = pd.read_csv(filename, delimiter=",")
+            except FileNotFoundError:
+                print("You have entered a incorrect file name, please try again")
+            else:
+                # Split the data file into seperated rows and collumns, and load into a numpy array
+                npGrades = np.array(pdGrades)
+                grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
+                grades = grades.reset_index(drop=True)
+                grades = np.array(grades)
+                
+                shapeData = np.shape(grades)
+                break
         
     # The input is converted to a pandas matrix and a numpy array
     
@@ -325,7 +330,7 @@ while True:
         gradesList = np.c_[gradesList,finalGrades]
         
         tempGrades = np.c_[npGrades, np.zeros(shapeData[0])]
-        for x in range(np.shape(gradesList)[1]):
+        for x in range(np.shape(gradesList)[0]):
             tempGrades[:,x+2] = gradesList[:,x]
 
         sortedArray = npGrades[np.argsort(npGrades[:, 1])]
