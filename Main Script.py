@@ -289,6 +289,7 @@ while True:
                     # Resets the index and stores the new data in a numpy array
                     pdGrades = pdGrades.reset_index(drop=True)
                     npGrades = np.array(pdGrades)
+                    shapeData = np.shape(npGrades)
 
                     
                     break
