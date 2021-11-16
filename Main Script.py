@@ -23,6 +23,8 @@ def roundGrade(grades):
     shapeData = np.shape(grades)
     gradesRounded = np.zeros(shapeData)
     
+    sevenstepGrades = np.array([-3,0,2,4,7,10,12])
+    
     
     # A zero array is created
     smallestDifIndex = np.zeros(len(grades))
@@ -31,13 +33,13 @@ def roundGrade(grades):
     for i in range(len(grades)):
         
         # An array, containing the differences between the i'th element of the function input and each round grade, is created
-        dif = np.abs(roundGrades - grades[i])
+        dif = np.abs(sevenstepGrades - grades[i])
         #print(dif)
         # The index of the round grade with the smallest difference to the i'th grade is put into an array
         smallestDifIndex[i] = dif.argmin()
         
         # The round grades corresponding to the indexes are put into an array
-        gradesRounded[i] = int(roundGrades[int(smallestDifIndex[i])])
+        gradesRounded[i] = int(sevenstepGrades[int(smallestDifIndex[i])])
         
     return gradesRounded
 
@@ -95,19 +97,19 @@ def gradesPlot(grades):
     plotData = computeFinalGrades(grades)
     
     # The y-axis is defined as a zero array
-    y_axis = np.zeros(len(roundGrades))
+    y_axis = np.zeros(len(sevenstepGrades))
     
     # A for loop is used to put the number of occurences of each final grade into the y-axis array
-    for i in range(len(roundGrades)):
-        y_axis[i] = np.sum(plotData == roundGrades[i])
+    for i in range(len(sevenstepGrades)):
+        y_axis[i] = np.sum(plotData == sevenstepGrades[i])
         
     
     # Creating a list of colors that will be used for each bar in the plot
     colors = ["r","g","b","m","c","peru","yellow"]
     
     # A for loop is used to define the bars in the plot with the round grade on the x-axis and the y-axis being the one we previously defined
-    for i in range(len(roundGrades)):
-        plt.bar(str(roundGrades[i]), y_axis[i], color=colors[i])
+    for i in range(len(sevenstepGrades)):
+        plt.bar(str(sevenstepGrades[i]), y_axis[i], color=colors[i])
     
     # Designing and running the plot
     plt.title("Final Grades")
@@ -174,9 +176,9 @@ def gradesPlot(grades):
 # 4: Main Script
 # =============================================================================
 # Initialize by asking for file name of data
-roundGrades = np.array([-3,0,2,4,7,10,12])
+sevenstepGrades = np.array([-3,0,2,4,7,10,12])
 
-filename = "test1nooerror.csv"
+filename = "test1.csv"
 
 # Split the data file into seperated rows and collumns, and load into a numpy array
 pdGrades = pd.read_csv(filename, delimiter=",")
@@ -250,11 +252,11 @@ while True:
             # A loop that checks through every element and compares it to the list of allowed grades
             for i in range(shape[0]):
                 for x in range(shape[1]):
-                    if npgradesData[i,x] not in roundGrades:
+                    if npgradesData[i,x] < -3 or npgradesData[i,x] > 12:
                         print(npgradesData[i,x], "is an errornous grade (" + str(studentName[i]) + "'s assignment " + str(x+1) + ")")
                         
                         # Stores the placement of the error in an array
-                        errorIndexGrades = np.append(errorIndexGrades, x)
+                        errorIndexGrades = np.append(errorIndexGrades, i)
                         
                         anyErrors = True
             
@@ -324,7 +326,7 @@ while True:
 
         sortedArray = npGrades[np.argsort(npGrades[:, 1])]
         
-        for i in range(np.shape(sortedArray)[0]-2):
+        for i in range(np.shape(sortedArray)[0]):
             print("\n", sortedArray[i,1], " (", sortedArray[i,0],"):", sep="")
             print("    Assignment grades:", sortedArray[i,2:])
             print("    Final grade:", int(computeFinalGrades(sortedArray[:,2:])[i]))
