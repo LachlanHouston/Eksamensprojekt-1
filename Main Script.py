@@ -211,6 +211,8 @@ while True:
         grades = grades.reset_index(drop=True)
         grades = np.array(grades)
         
+        shapeData = np.shape(grades)
+        
     # The input is converted to a pandas matrix and a numpy array
     
     errorIndexID = np.array([])
@@ -289,7 +291,8 @@ while True:
                     # Resets the index and stores the new data in a numpy array
                     pdGrades = pdGrades.reset_index(drop=True)
                     npGrades = np.array(pdGrades)
-                    shapeData = np.shape(npGrades)
+                    grades = npGrades[:,2:]
+                    shapeData = np.shape(grades)
 
                     
                     break
@@ -316,7 +319,7 @@ while True:
         gradesList = np.zeros(shapeData)
         finalGrades = np.array(computeFinalGrades(grades))
 
-        for i in range(shapeData[1]):
+        for i in range(shapeData[0]):
             gradesList[i] = roundGrade(grades[i,:])
         
         gradesList = np.c_[gradesList,finalGrades]
