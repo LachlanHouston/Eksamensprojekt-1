@@ -1,8 +1,10 @@
-StudentID,Name,Assignment1,Assignment2,Assignment3,Assignment4,Assignment5,Assignment6
-s214593,Lachlan Houston,4,4.5,5.5,12,4,-1
-s114593,Faxe Pizzaria,4,2,-2,11,3,1
-s410593,Mette Frederiksen,0,6,10,4,7,4
-s010593,Frederik Ravnborg,10,12,12,10,7,0
-s717593,Frida Marie,7,9,4,2,2,7
-s410593,Honax,0,4,4,2,15,0
-s874398,Bølle-Bob,7,10.5,12,12,10,12
+StudentID,Name,Assignment1,Assignment2,Assignment3,Assignment4,Assignment5,Assignment6,Assignment7
+s214593,Lachlan Houston,4,4.5,5.5,12,4,-1,-2
+s114593,Faxe Pizzaria,4,2,-2,11,3,1,-3
+s410593,Mette Frederiksen,0,6,10,4,7,4,2
+s010593,Frederik Ravnborg,10,12,12,10,7,0,4
+s717593,Frida Marie,7,9,4,2,2,7,5
+s410593,Honax,0,4,4,2,15,0,11
+s874398,Bølle-Bob,7,10.5,12,12,10,12,16
+s874400,Lyngby Pizzaria,4,4,0,6,7,10,9
+s874400,32 kr for kebab + sodavand,12,12,12,-3,12,12,7

@@ -56,39 +56,49 @@ def computeFinalGrades(grades):
     gradesFinal = np.zeros(np.shape(grades)[0])
     shapeData = np.shape(grades)
     
+    print(shapeData)
+    
+    if shapeData[1] == 1:
+        for i in range(shapeData[0]):
+            
+            # If a student is given at least one -3 for an assignment, the final grade is set to -3
+            if -3 in grades[i,:]:
+                gradesFinal[i] = -3
+            
+            # If a student is given just one grade, that is the final grade for that student
+            elif shapeData[1] == 1:
+    
+                gradesFinal[i] = grades[i]
+        
+    elif shapeData[1] > 1:
     # Creating a for loop that goes through all the rows
-    for i in range (len(grades)):
-        
-        # If a student is given at least one -3 for an assignment, the final grade is set to -3
-        if -3 in grades[i,:]:
-            gradesFinal[i] = -3
-        
-        # If a student is given just one grade, that is the final grade for that student
-        if shapeData[1] == 1:
+        for i in range(shapeData[0]):
             
-            gradesFinal = grades[0]
-            
-        # If a student is given more than one grade, the lowest grade is removed and the mean is computed from the remaining
-        else:
-            
-            # A zero array is created
-            lowestRemoved = np.zeros(np.shape(grades)[1]-1)    
-            
-            # Creating a for loop that goes through all the grades of the i'th student
-            for j in range(np.shape(grades)[1]-1):
+            # If a student is given at least one -3 for an assignment, the final grade is set to -3
+            if -3 in grades[i,:]:
+                gradesFinal[i] = -3
+
+            # If a student is given more than one grade, the lowest grade is removed and the mean is computed from the remaining
+            else:
                 
-                # The lowest grade for the i'th student is assigned a variable
-                lowestGrade = np.min(grades[i,:])
+                # A zero array is created
+                lowestRemoved = np.zeros(shapeData[1])    
                 
-                # Putting all the grades except the lowest grade into an array
-                if grades[i,j] != lowestGrade:
-                    lowestRemoved[j] = grades[i,j]
-            
-            # Computing the mean grade, having removed the lowest grade, for each student, and putting them into an array
-            gradesFinal[i] = np.mean(lowestRemoved)
-            
-            # Using the roundGrade function to round the mean grades for each student
-            gradesFinal = roundGrade(gradesFinal)
+                # Creating a for loop that goes through all the grades of the i'th student
+                for j in range(shapeData[1]):
+                    
+                    # The lowest grade for the i'th student is assigned a variable
+                    lowestGrade = np.min(grades[i,:])
+                    
+                    # Putting all the grades except the lowest grade into an array
+                    if grades[i,j] != lowestGrade:
+                        lowestRemoved[j] = grades[i,j]
+                
+                # Computing the mean grade, having removed the lowest grade, for each student, and putting them into an array
+                gradesFinal[i] = np.mean(lowestRemoved)
+                
+                # Using the roundGrade function to round the mean grades for each student
+                gradesFinal = roundGrade(gradesFinal)
     
     # Returns a vector containing the students final grade
     return gradesFinal
@@ -196,13 +206,15 @@ while True:
     print("Please input a file name (including .csv)")
     try:
         filename = input()
-        pdGrades = pd.read_csv(filename, delimiter=",")
+        # pdGrades = pd.read_csv(filename, delimiter=",")
+        pdGrades = pd.read_csv(filename)
     except FileNotFoundError:
         print("You have entered a incorrect file name, please try again")
     
     else:
         # Split the data file into seperated rows and collumns, and load into a numpy array
-        pdGrades = pd.read_csv(filename, delimiter=",")
+        # pdGrades = pd.read_csv(filename, delimiter=",")
+        pdGrades = pd.read_csv(filename)
         npGrades = np.array(pdGrades)
         grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
         grades = grades.reset_index(drop=True)
@@ -378,12 +390,15 @@ while True:
         # Sort an erray based 'npGrades' collumn of names, sorts alphabetically
         sortedArray = npGrades[np.argsort(npGrades[:, 1])]
         
+        gradesFinal = np.array(computeFinalGrades(grades))
+        
         # Print every data entry in following setup: "Name (string), StudentID (string):" "Every grade assignment: (list)" "Final grade: (number)"
         for i in range(np.shape(sortedArray)[0]):
             print("\n", sortedArray[i,1], " (", sortedArray[i,0],"):", sep="")
             print("    Assignment grades:", sortedArray[i,2:])
+            # print("    Final grade:", int(computeFinalGrades(sortedArray[:,2:])[i]))
             print("    Final grade:", int(computeFinalGrades(sortedArray[:,2:])[i]))
-        
+            
     # User quits the program, this is done by breaking out of main loop, ending the program            
     elif userInput == "5" or userInput == "quit" or userInput == "quit the program":
         print("Bye")
