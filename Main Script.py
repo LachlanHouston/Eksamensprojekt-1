@@ -56,8 +56,6 @@ def computeFinalGrades(grades):
     gradesFinal = np.zeros(np.shape(grades)[0])
     shapeData = np.shape(grades)
     
-    print(shapeData)
-    
     if shapeData[1] == 1:
         for i in range(shapeData[0]):
             
