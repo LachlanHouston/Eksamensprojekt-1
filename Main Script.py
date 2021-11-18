@@ -184,6 +184,7 @@ def gradesPlot(grades):
     plt.xlabel("Assignment number")
     plt.ylabel("Grade")    
     plt.legend(["Every assignment of every student", "Mean grade of each assignment"], loc ="upper left")
+    plt.xticks(np.arange(1, len(nrOfAs), step=1))
     plt.ylim([-3.5, np.max(yAxisDeviated)+4])     
     plt.show()
 
@@ -200,7 +201,7 @@ sevenstepGrades = np.array([-3,0,2,4,7,10,12])
 
 
 while True:
-    print('Please input a file name (".csv" is optional)')
+    print('\nPlease input a file name')
     filename = input()
     try:        
         pdGrades = pd.read_csv(filename, delimiter=",")
@@ -222,6 +223,17 @@ while True:
             
             shapeData = np.shape(grades)
             break
+    else:
+        # Split the data file into seperated rows and collumns, and load into a numpy array
+        # pdGrades = pd.read_csv(filename, delimiter=",")
+        pdGrades = pd.read_csv(filename)
+        npGrades = np.array(pdGrades)
+        grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
+        grades = grades.reset_index(drop=True)
+        grades = np.array(grades)
+        
+        shapeData = np.shape(grades)
+        break
 
 
 # Main loop initialized
@@ -231,7 +243,7 @@ while True:
     if np.shape(grades)[0] == 0:
         print("\nThere are no students in the dataset.")
         while True:
-            print('Please input a file name (".csv" is optional)')
+            print('\nPlease input a file name')
             filename = input()
             try:        
                 pdGrades = pd.read_csv(filename, delimiter=",")
@@ -253,7 +265,18 @@ while True:
                     
                     shapeData = np.shape(grades)
                     break
-    
+            else:
+                # Split the data file into seperated rows and collumns, and load into a numpy array
+                # pdGrades = pd.read_csv(filename, delimiter=",")
+                pdGrades = pd.read_csv(filename)
+                npGrades = np.array(pdGrades)
+                grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
+                grades = grades.reset_index(drop=True)
+                grades = np.array(grades)
+                
+                shapeData = np.shape(grades)
+                break
+
     # Takes input and directs to where the user wants to go
     print(" ","You have the following options:"," ", "1) Load new data","2) Check for data errors", "3) Generate plots","4) Display list of grades","5) Quit the program",sep='\n')
     userInput = input()
@@ -263,7 +286,7 @@ while True:
     # User can load new data file
     if userInput == "1" or userInput == "load data" or userInput == "load new data":
         while True:
-            print('Please input a file name (".csv" is optional)')
+            print('\nPlease input a file name')
             filename = input()
             try:        
                 pdGrades = pd.read_csv(filename, delimiter=",")
@@ -285,6 +308,17 @@ while True:
                     
                     shapeData = np.shape(grades)
                     break
+            else:
+                # Split the data file into seperated rows and collumns, and load into a numpy array
+                # pdGrades = pd.read_csv(filename, delimiter=",")
+                pdGrades = pd.read_csv(filename)
+                npGrades = np.array(pdGrades)
+                grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
+                grades = grades.reset_index(drop=True)
+                grades = np.array(grades)
+                
+                shapeData = np.shape(grades)
+                break
         
     # User can see errors in data file, and can choose whether to delete data with error or not
     elif userInput == "2" or userInput == "check for errors" or userInput == "check for data errors":
