@@ -5,7 +5,6 @@ By: Lachlan Houston (s214593) og Frederik Ravnborg (s204078)
 Due: 03/12/2021
 """
 
-qwqw
 import numpy as np
 from numpy import random
 
@@ -201,25 +200,28 @@ sevenstepGrades = np.array([-3,0,2,4,7,10,12])
 
 
 while True:
-    print("Please input a file name (including .csv)")
-    try:
-        filename = input()
-        # pdGrades = pd.read_csv(filename, delimiter=",")
-        pdGrades = pd.read_csv(filename)
+    print('"Please input a file name (".csv" is optional)')
+    filename = input()
+    try:        
+        pdGrades = pd.read_csv(filename, delimiter=",")
     except FileNotFoundError:
-        print("You have entered a incorrect file name, please try again")
+        try:
+            filename = str(filename) + ".csv"
+            pdGrades = pd.read_csv(filename, delimiter=",")
+        except FileNotFoundError:
+            print("You have entered a incorrect file name, please try again")
     
-    else:
-        # Split the data file into seperated rows and collumns, and load into a numpy array
-        # pdGrades = pd.read_csv(filename, delimiter=",")
-        pdGrades = pd.read_csv(filename)
-        npGrades = np.array(pdGrades)
-        grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
-        grades = grades.reset_index(drop=True)
-        grades = np.array(grades)
-        
-        shapeData = np.shape(grades)
-        break
+        else:
+            # Split the data file into seperated rows and collumns, and load into a numpy array
+            # pdGrades = pd.read_csv(filename, delimiter=",")
+            pdGrades = pd.read_csv(filename)
+            npGrades = np.array(pdGrades)
+            grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
+            grades = grades.reset_index(drop=True)
+            grades = np.array(grades)
+            
+            shapeData = np.shape(grades)
+            break
 
 
 # Main loop initialized
@@ -229,24 +231,28 @@ while True:
     if np.shape(grades)[0] == 0:
         print("\nThere are no students in the dataset.")
         while True:
-            print("Please input a file name (including .csv)")
-            try:
-                filename = input()
+            print('"Please input a file name (".csv" is optional)')
+            filename = input()
+            try:        
                 pdGrades = pd.read_csv(filename, delimiter=",")
             except FileNotFoundError:
-                print("You have entered a incorrect file name, please try again")
+                try:
+                    filename = str(filename) + ".csv"
+                    pdGrades = pd.read_csv(filename, delimiter=",")
+                except FileNotFoundError:
+                    print("You have entered a incorrect file name, please try again")
             
-            else:
-                # Split the data file into seperated rows and collumns, and load into a numpy array
-                pdGrades = pd.read_csv(filename, delimiter=",")
-                npGrades = np.array(pdGrades)
-                grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
-                grades = grades.reset_index(drop=True)
-                grades = np.array(grades)
-                
-                # Update shapeData and break
-                shapeData = np.shape(grades)
-                break
+                else:
+                    # Split the data file into seperated rows and collumns, and load into a numpy array
+                    # pdGrades = pd.read_csv(filename, delimiter=",")
+                    pdGrades = pd.read_csv(filename)
+                    npGrades = np.array(pdGrades)
+                    grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
+                    grades = grades.reset_index(drop=True)
+                    grades = np.array(grades)
+                    
+                    shapeData = np.shape(grades)
+                    break
     
     # Takes input and directs to where the user wants to go
     print(" ","You have the following options:"," ", "1) Load new data","2) Check for data errors", "3) Generate plots","4) Display list of grades","5) Quit the program",sep='\n')
@@ -257,26 +263,28 @@ while True:
     # User can load new data file
     if userInput == "1" or userInput == "load data" or userInput == "load new data":
         while True:
-        
-            # Ask for filename
-            print("Please type the name of the file (including .csv)","\n")
-            
-            # Load data, if wrong file name given, loop back to user input
-            try:
-                filename = input()
+            print('"Please input a file name (".csv" is optional)')
+            filename = input()
+            try:        
                 pdGrades = pd.read_csv(filename, delimiter=",")
             except FileNotFoundError:
-                print("You have entered a incorrect file name, please try again")
-            else:
-                # Split the data file into seperated rows and collumns, and load into a numpy array
-                npGrades = np.array(pdGrades)
-                grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
-                grades = grades.reset_index(drop=True)
-                grades = np.array(grades)
-                
-                # Redefine matrix shape data
-                shapeData = np.shape(grades)
-                break
+                try:
+                    filename = str(filename) + ".csv"
+                    pdGrades = pd.read_csv(filename, delimiter=",")
+                except FileNotFoundError:
+                    print("You have entered a incorrect file name, please try again")
+            
+                else:
+                    # Split the data file into seperated rows and collumns, and load into a numpy array
+                    # pdGrades = pd.read_csv(filename, delimiter=",")
+                    pdGrades = pd.read_csv(filename)
+                    npGrades = np.array(pdGrades)
+                    grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
+                    grades = grades.reset_index(drop=True)
+                    grades = np.array(grades)
+                    
+                    shapeData = np.shape(grades)
+                    break
         
     # User can see errors in data file, and can choose whether to delete data with error or not
     elif userInput == "2" or userInput == "check for errors" or userInput == "check for data errors":
