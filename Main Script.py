@@ -200,7 +200,7 @@ sevenstepGrades = np.array([-3,0,2,4,7,10,12])
 
 
 while True:
-    print('"Please input a file name (".csv" is optional)')
+    print('Please input a file name (".csv" is optional)')
     filename = input()
     try:        
         pdGrades = pd.read_csv(filename, delimiter=",")
@@ -231,7 +231,7 @@ while True:
     if np.shape(grades)[0] == 0:
         print("\nThere are no students in the dataset.")
         while True:
-            print('"Please input a file name (".csv" is optional)')
+            print('Please input a file name (".csv" is optional)')
             filename = input()
             try:        
                 pdGrades = pd.read_csv(filename, delimiter=",")
@@ -263,7 +263,7 @@ while True:
     # User can load new data file
     if userInput == "1" or userInput == "load data" or userInput == "load new data":
         while True:
-            print('"Please input a file name (".csv" is optional)')
+            print('Please input a file name (".csv" is optional)')
             filename = input()
             try:        
                 pdGrades = pd.read_csv(filename, delimiter=",")
