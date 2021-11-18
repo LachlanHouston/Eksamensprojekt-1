@@ -5,7 +5,7 @@ By: Lachlan Houston (s214593) og Frederik Ravnborg (s204078)
 Due: 03/12/2021
 """
 
-w
+qwqw
 import numpy as np
 from numpy import random
 
