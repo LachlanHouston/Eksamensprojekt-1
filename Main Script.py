@@ -127,12 +127,14 @@ def gradesPlot(grades):
     for i in range(len(sevenstepGrades)):
         plt.bar(str(sevenstepGrades[i]), y_axis[i], color=colors[i])
     
+    
     # Designing and running the plot
-    plt.title("Final Grades")
+    plt.title("Final Grades", color = "darkblue")
     plt.xlabel("Grade on the 7-step scale")
     plt.ylabel("Number of students")
     plt.xlim([-0.5, 6.5])
     plt.ylim([0, np.max(y_axis)+0.3])
+
     plt.show()
 
 # Plot 2: Grades per Assignment
@@ -173,19 +175,19 @@ def gradesPlot(grades):
     # An empty array is created to be able to contain the mean grade of each assignment
     AsMean = np.zeros(nrOfAs)
     
-    # Using a for loop the mean grade of each assignment is put into the array
+# Using a for loop the mean grade of each assignment is put into the array
     for i in range(nrOfAs):
         AsMean[i] = np.mean(np.array(grades[:,i]))
     
     # Designing and running the plot
     plt.plot(xAxisDeviated,yAxisDeviated,"o")
     plt.plot(asNr,AsMean)
-    plt.title("Grades per assignment")
+    plt.title("Grades per assignment", color = "darkblue")
     plt.xlabel("Assignment number")
     plt.ylabel("Grade")    
     plt.legend(["Every assignment of every student", "Mean grade of each assignment"], loc ="upper left")
-    plt.xticks(xAxis)
-    plt.yticks(sevenstepGrades,color="r")
+    plt.xticks(xAxis,color = "maroon")
+    plt.yticks(sevenstepGrades,color = "darkgreen")
     plt.ylim([-3.5, np.max(yAxisDeviated)+4])     
     plt.show()
 
@@ -421,11 +423,12 @@ while True:
                 print("\nThere are no errors in the data")
                 break
                 
-    # User generates plots and prints them
+    # User is shown plots
     elif userInput == "3" or userInput == "plots" or userInput == "generate plots":
         gradesPlot(grades)
+        print("Two plots are now showing. The first plot is a bar chart visualizing")
     
-    # User access list over grades alphabetically sorted with final grade given
+    # User is shown a list over grades alphabetically sorted, and with final grade given
     elif userInput == "4" or userInput == "display list" or userInput == "display list of grades":
         
         # Sort an erray based 'npGrades' collumn of names, sorts alphabetically
