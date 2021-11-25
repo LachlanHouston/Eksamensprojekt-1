@@ -184,7 +184,8 @@ def gradesPlot(grades):
     plt.xlabel("Assignment number")
     plt.ylabel("Grade")    
     plt.legend(["Every assignment of every student", "Mean grade of each assignment"], loc ="upper left")
-    plt.xticks(np.arange(1, len(nrOfAs), step=1))
+    plt.xticks(xAxis)
+    plt.yticks(sevenstepGrades,color="r")
     plt.ylim([-3.5, np.max(yAxisDeviated)+4])     
     plt.show()
 
