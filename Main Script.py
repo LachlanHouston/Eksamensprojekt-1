@@ -426,11 +426,12 @@ while True:
     # User is shown plots
     elif userInput == "3" or userInput == "plots" or userInput == "generate plots":
         gradesPlot(grades)
-        print("Two plots are now showing. The first plot is a bar chart visualizing")
+        print("Two plots are now showing. The first plot is a bar chart visualizing how many students got the different grades as their final grade.")
+        print("The second plot shows all the grades given for each assignment. The orange line represents the mean grade of each assignment.")
     
     # User is shown a list over grades alphabetically sorted, and with final grade given
     elif userInput == "4" or userInput == "display list" or userInput == "display list of grades":
-        
+        print("Here is a list showing for each student, all their assignment grades as well as their final grade, organized alphabetically by student name.")
         # Sort an erray based 'npGrades' collumn of names, sorts alphabetically
         sortedArray = npGrades[np.argsort(npGrades[:, 1])]
         
@@ -442,7 +443,41 @@ while True:
             print("    Assignment grades:", sortedArray[i,2:])
             # print("    Final grade:", int(computeFinalGrades(sortedArray[:,2:])[i]))
             print("    Final grade:", int(computeFinalGrades(sortedArray[:,2:])[i]))
-            
+        
+        
+        
+        
+    
+        # # ID- & Names data are saved seperately for later use
+        # studentID = npGrades[:,0]
+        # studentName = npGrades[:,1]
+        # gradesAndNames = npGrades[:,1:]
+        
+        # nrOfStudents = np.shape(grades)[0]
+        # nrOfAs = np.shape(grades)[1]
+        
+        
+        # listData = np.zeros([nrOfStudents+1,nrOfAs+2])
+        # finalHeader = np.array(["Final grade"]
+        # a = np.append(["Final Grade"],[gradesFinal])
+        
+        
+        # for i in range(nrOfStudents):
+        #     listData[i+1,:] = gradesAndNames[i,:]   
+
+        # print(listData)
+        
+        # # Creating an array containing the assignment numbers by using a for loop
+        # asNr = np.zeros(nrOfAs)
+        # for i in range(nrOfAs):
+        #     asNr[i] = i+1
+        
+        # print(pd.DataFrame(gradesAndNames))
+        
+        
+        
+        
+        
     # User quits the program, this is done by breaking out of main loop, ending the program            
     elif userInput == "5" or userInput == "quit" or userInput == "quit the program":
         print("Bye")
