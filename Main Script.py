@@ -202,42 +202,40 @@ def gradesPlot(grades):
 # Initialize by asking for file name of data
 sevenstepGrades = np.array([-3,0,2,4,7,10,12])
 
-
-while True:
-    print('\nPlease input a file name')
-    filename = input()
-    try:        
-        pdGrades = pd.read_csv(filename, delimiter=",")
-    except FileNotFoundError:
-        try:
-            filename = str(filename) + ".csv"
+def dataLoad():
+    while True:
+        print('\nPlease input a file name')
+        filename = input()
+        try:        
             pdGrades = pd.read_csv(filename, delimiter=",")
         except FileNotFoundError:
-            print("You have entered a incorrect file name, please try again")
-    
+            try:
+                filename = str(filename) + ".csv"
+                pdGrades = pd.read_csv(filename, delimiter=",")
+            except FileNotFoundError:
+                print("\nYou have entered a incorrect file name, please try again.")
+        
+            else:
+                # Split the data file into seperated rows and collumns, and load into a numpy array
+                # pdGrades = pd.read_csv(filename, delimiter=",")
+                pdGrades = pd.read_csv(filename)
+                print("\nA data file has been loaded containing", np.shape(pdGrades)[0], "students and", np.shape(pdGrades)[1]-2, "assignments.")
+                return pdGrades
+                break
         else:
             # Split the data file into seperated rows and collumns, and load into a numpy array
             # pdGrades = pd.read_csv(filename, delimiter=",")
             pdGrades = pd.read_csv(filename)
-            npGrades = np.array(pdGrades)
-            grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
-            grades = grades.reset_index(drop=True)
-            grades = np.array(grades)
-            
-            shapeData = np.shape(grades)
+            print("\nA data file has been loaded containing", np.shape(pdGrades)[0], "students and", np.shape(pdGrades)[1]-2, "assignments.")
+            return pdGrades
             break
-    else:
-        # Split the data file into seperated rows and collumns, and load into a numpy array
-        # pdGrades = pd.read_csv(filename, delimiter=",")
-        pdGrades = pd.read_csv(filename)
-        npGrades = np.array(pdGrades)
-        grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
-        grades = grades.reset_index(drop=True)
-        grades = np.array(grades)
-        
-        shapeData = np.shape(grades)
-        break
 
+pdGrades = dataLoad()
+npGrades = np.array(pdGrades)
+grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
+grades = grades.reset_index(drop=True)
+grades = np.array(grades)
+shapeData = np.shape(grades)
 
 # Main loop initialized
 while True:
@@ -245,40 +243,12 @@ while True:
     # Checks whether there are any rows in the data
     if np.shape(grades)[0] == 0:
         print("\nThere are no students in the dataset.")
-        while True:
-            print('\nPlease input a file name')
-            filename = input()
-            try:        
-                pdGrades = pd.read_csv(filename, delimiter=",")
-            except FileNotFoundError:
-                try:
-                    filename = str(filename) + ".csv"
-                    pdGrades = pd.read_csv(filename, delimiter=",")
-                except FileNotFoundError:
-                    print("You have entered a incorrect file name, please try again")
-            
-                else:
-                    # Split the data file into seperated rows and collumns, and load into a numpy array
-                    # pdGrades = pd.read_csv(filename, delimiter=",")
-                    pdGrades = pd.read_csv(filename)
-                    npGrades = np.array(pdGrades)
-                    grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
-                    grades = grades.reset_index(drop=True)
-                    grades = np.array(grades)
-                    
-                    shapeData = np.shape(grades)
-                    break
-            else:
-                # Split the data file into seperated rows and collumns, and load into a numpy array
-                # pdGrades = pd.read_csv(filename, delimiter=",")
-                pdGrades = pd.read_csv(filename)
-                npGrades = np.array(pdGrades)
-                grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
-                grades = grades.reset_index(drop=True)
-                grades = np.array(grades)
-                
-                shapeData = np.shape(grades)
-                break
+        pdGrades = dataLoad()
+        npGrades = np.array(pdGrades)
+        grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
+        grades = grades.reset_index(drop=True)
+        grades = np.array(grades)
+        shapeData = np.shape(grades)
 
     # Takes input and directs to where the user wants to go
     print(" ","You have the following options:"," ", "1) Load new data","2) Check for data errors", "3) Generate plots","4) Display list of grades","5) Quit the program",sep='\n')
@@ -288,40 +258,12 @@ while True:
     
     # User can load new data file
     if userInput == "1" or userInput == "load data" or userInput == "load new data":
-        while True:
-            print('\nPlease input a file name')
-            filename = input()
-            try:        
-                pdGrades = pd.read_csv(filename, delimiter=",")
-            except FileNotFoundError:
-                try:
-                    filename = str(filename) + ".csv"
-                    pdGrades = pd.read_csv(filename, delimiter=",")
-                except FileNotFoundError:
-                    print("You have entered a incorrect file name, please try again")
-            
-                else:
-                    # Split the data file into seperated rows and collumns, and load into a numpy array
-                    # pdGrades = pd.read_csv(filename, delimiter=",")
-                    pdGrades = pd.read_csv(filename)
-                    npGrades = np.array(pdGrades)
-                    grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
-                    grades = grades.reset_index(drop=True)
-                    grades = np.array(grades)
-                    
-                    shapeData = np.shape(grades)
-                    break
-            else:
-                # Split the data file into seperated rows and collumns, and load into a numpy array
-                # pdGrades = pd.read_csv(filename, delimiter=",")
-                pdGrades = pd.read_csv(filename)
-                npGrades = np.array(pdGrades)
-                grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
-                grades = grades.reset_index(drop=True)
-                grades = np.array(grades)
-                
-                shapeData = np.shape(grades)
-                break
+        pdGrades = dataLoad()
+        npGrades = np.array(pdGrades)
+        grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
+        grades = grades.reset_index(drop=True)
+        grades = np.array(grades)
+        shapeData = np.shape(grades)
         
     # User can see errors in data file, and can choose whether to delete data with error or not
     elif userInput == "2" or userInput == "check for errors" or userInput == "check for data errors":
@@ -443,39 +385,6 @@ while True:
             print("    Assignment grades:", sortedArray[i,2:])
             # print("    Final grade:", int(computeFinalGrades(sortedArray[:,2:])[i]))
             print("    Final grade:", int(computeFinalGrades(sortedArray[:,2:])[i]))
-        
-        
-        
-        
-    
-        # # ID- & Names data are saved seperately for later use
-        # studentID = npGrades[:,0]
-        # studentName = npGrades[:,1]
-        # gradesAndNames = npGrades[:,1:]
-        
-        # nrOfStudents = np.shape(grades)[0]
-        # nrOfAs = np.shape(grades)[1]
-        
-        
-        # listData = np.zeros([nrOfStudents+1,nrOfAs+2])
-        # finalHeader = np.array(["Final grade"]
-        # a = np.append(["Final Grade"],[gradesFinal])
-        
-        
-        # for i in range(nrOfStudents):
-        #     listData[i+1,:] = gradesAndNames[i,:]   
-
-        # print(listData)
-        
-        # # Creating an array containing the assignment numbers by using a for loop
-        # asNr = np.zeros(nrOfAs)
-        # for i in range(nrOfAs):
-        #     asNr[i] = i+1
-        
-        # print(pd.DataFrame(gradesAndNames))
-        
-        
-        
         
         
     # User quits the program, this is done by breaking out of main loop, ending the program            
