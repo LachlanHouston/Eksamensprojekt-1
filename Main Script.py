@@ -230,6 +230,7 @@ def dataLoad():
             return pdGrades
             break
 
+# Splitting the data file into seperated rows and collumns, and load into a numpy array
 pdGrades = dataLoad()
 npGrades = np.array(pdGrades)
 grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
@@ -243,6 +244,8 @@ while True:
     # Checks whether there are any rows in the data
     if np.shape(grades)[0] == 0:
         print("\nThere are no students in the dataset.")
+        
+        # Splitting the data file into seperated rows and collumns, and load into a numpy array
         pdGrades = dataLoad()
         npGrades = np.array(pdGrades)
         grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
@@ -258,6 +261,8 @@ while True:
     
     # User can load new data file
     if userInput == "1" or userInput == "load data" or userInput == "load new data":
+        
+        # Splitting the data file into seperated rows and collumns, and load into a numpy array
         pdGrades = dataLoad()
         npGrades = np.array(pdGrades)
         grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
