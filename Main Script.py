@@ -5,6 +5,7 @@ By: Lachlan Houston (s214593) og Frederik Ravnborg (s204078)
 Due: 03/12/2021
 """
 
+# Initialisation of packages
 import numpy as np
 from numpy import random
 
@@ -264,6 +265,8 @@ while True:
         
         # Splitting the data file into seperated rows and collumns, and load into a numpy array
         pdGrades = dataLoad()
+        
+        # Splitting the data file into seperated rows and collumns, and load into a numpy array
         npGrades = np.array(pdGrades)
         grades = pdGrades.drop(['StudentID',"Name"],axis = 1)
         grades = grades.reset_index(drop=True)
