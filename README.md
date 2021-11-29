@@ -1,3 +1,3 @@
 # Eksamensprojekt-1
 
-- roundGrade funktionen kan ikke håndtere data der er længere end 7 (længden af listen med hver karakter i)
+- Dataen bliver ikke reset hvis man trykker nej til at slette, så Mette Frederiksen bliver stadig klassificeret som en "error" og bliver ikke klassificeret som at have samme studienummer som Honax bagefter.
