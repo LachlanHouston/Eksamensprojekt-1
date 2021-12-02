@@ -300,7 +300,8 @@ while True:
                         
                     # If student ID are identical, set first data entry studentID to 'error' so the pair doesn't get counted twice
                     elif studentID[i] == studentID[j]:
-                        print(studentName[i],"and",studentName[j], "have identical student IDs (" + str(studentID[i]) + ")" )
+                        if i % 2 == 0:
+                            print(studentName[i],"and",studentName[j], "have identical student IDs (" + str(studentID[i]) + ")" )
                         
                         # Stores the placement of the error in an array
                         errorIndexID = np.append(errorIndexID, i)
