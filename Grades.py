@@ -82,13 +82,13 @@ def computeFinalGrades(grades):
             else:
                 
                 # A zero array is created
-                lowestRemoved = np.zeros(shapeData[1])    
+                lowestRemoved = np.zeros(shapeData[1]) 
+                
+                # The lowest grade for the i'th student is assigned a variable
+                lowestGrade = np.min(grades[i,:])
                 
                 # Creating a for loop that goes through all the grades of the i'th student
                 for j in range(shapeData[1]):
-                    
-                    # The lowest grade for the i'th student is assigned a variable
-                    lowestGrade = np.min(grades[i,:])
                     
                     # Putting all the grades except the lowest grade into an array
                     if grades[i,j] != lowestGrade:
