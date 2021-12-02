@@ -8,7 +8,6 @@ Due: 03/12/2021
 # Initialization of packages
 import numpy as np
 from numpy import random
-
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -26,7 +25,6 @@ def roundGrade(grades):
     
     # An array is created with all the grades from the 7-step scale
     sevenstepGrades = np.array([-3,0,2,4,7,10,12])
-    
     
     # A zero array is created
     smallestDifIndex = np.zeros(len(grades))
@@ -113,14 +111,12 @@ def gradesPlot(grades):
     for i in range(len(sevenstepGrades)):
         plt.bar(str(sevenstepGrades[i]), y_axis[i], color=colors[i])
     
-    
     # Designing and running the plot
     plt.title("Final Grades", color = "darkblue")
     plt.xlabel("Grade on the 7-step scale")
     plt.ylabel("Number of students")
     plt.xlim([-0.5, 6.5])
     plt.ylim([0, np.max(y_axis)+0.3])
-
     plt.show()
 
 # Plot 2: Grades per Assignment
@@ -399,7 +395,6 @@ while True:
             print("\n", sortedArray[i,1], " (", sortedArray[i,0],"):", sep="")
             print("    Assignment grades:", sortedArray[i,2:])
             print("    Final grade:", int(computeFinalGrades(sortedArray[:,2:])[i]))
-        
         
     # User quits the program, this is done by breaking out of main loop, ending the program            
     elif userInput == "5" or userInput == "quit" or userInput == "quit the program":
