@@ -398,14 +398,9 @@ while True:
     
 # =============================================================================
 # Grades List
-<<<<<<< HEAD
     # Frederik Funch Ravnborg (s204078)
-#
-=======
-    # Frederik Ravnborg
 
 # The list of students and their grades, and their calculated final grades is printed here. A simple sorting is done to sort students alphabetically (namewise)
->>>>>>> e5911f7c090ecead0dc047bcd06397601a1a7335
 # =============================================================================
     
     # User is shown a list over grades alphabetically sorted, and with final grade given
