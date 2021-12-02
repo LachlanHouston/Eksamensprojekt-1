@@ -73,22 +73,10 @@ def computeFinalGrades(grades):
                 gradesFinal[i] = -3
 
             # If a student is given more than one grade, the lowest grade is removed and the mean is computed from the remaining
+            
             else:
-                
-                # A zero array is created
-                lowestRemoved = np.zeros(shapeData[1]) 
-                
-                # The lowest grade for the i'th student is assigned a variable
-                lowestGrade = np.min(grades[i,:])
-                
-                # Creating a for loop that goes through all the grades of the i'th student
-                for j in range(shapeData[1]):
-                    
-                    # Putting all the grades except the lowest grade into an array
-                    if grades[i,j] != lowestGrade:
-                        lowestRemoved[j] = grades[i,j]
-                
                 # Computing the mean grade, having removed the lowest grade, for each student, and putting them into an array
+                lowestRemoved = np.delete(grades[i,:],grades[i,:].argmin())
                 gradesFinal[i] = np.mean(lowestRemoved)
                 
                 # Using the roundGrade function to round the mean grades for each student
