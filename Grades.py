@@ -61,14 +61,8 @@ def computeFinalGrades(grades):
     if shapeData[1] == 1:
         for i in range(shapeData[0]):
             
-            # If a student is given at least one -3 for an assignment, the final grade is set to -3
-            if -3 in grades[i,:]:
-                gradesFinal[i] = -3
-            
             # If a student is given just one grade, that is the final grade for that student
-            elif shapeData[1] == 1:
-    
-                gradesFinal[i] = grades[i]
+            gradesFinal[i] = grades[i]
         
     elif shapeData[1] > 1:
     # Creating a for loop that goes through all the rows
