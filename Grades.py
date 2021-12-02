@@ -1,6 +1,6 @@
 """
 Exam Project - Program for grading students
-(02631) Introduction to Programming and Data processing
+(02631) Introduction to Programming and Data processing - Program til karaktergivning af studerende
 By: Lachlan Houston (s214593) og Frederik Ravnborg (s204078)
 Due: 03/12/2021
 """
@@ -11,7 +11,6 @@ from numpy import random
 
 import pandas as pd
 import matplotlib.pyplot as plt
-
 
 # =============================================================================
 # 1: Round Grade function:
@@ -390,7 +389,6 @@ while True:
         for i in range(np.shape(sortedArray)[0]):
             print("\n", sortedArray[i,1], " (", sortedArray[i,0],"):", sep="")
             print("    Assignment grades:", sortedArray[i,2:])
-            # print("    Final grade:", int(computeFinalGrades(sortedArray[:,2:])[i]))
             print("    Final grade:", int(computeFinalGrades(sortedArray[:,2:])[i]))
         
         
