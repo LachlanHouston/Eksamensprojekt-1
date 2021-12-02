@@ -1,7 +1,7 @@
 """
 Exam Project - Program for grading students
 (02631) Introduction to Programming and Data processing - Program til karaktergivning af studerende
-By: Lachlan Houston (s214593) og Frederik Ravnborg (s204078)
+By: Lachlan John Houston (s214593) og Frederik Ravnborg (s204078)
 Due: 03/12/2021
 """
 
@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 
 # =============================================================================
 # 1: Round Grade function:
+    # Lachlan John Houston (s214593)
     
 # A function that takes a vector of grades as input and rounds them to their closest valid grade
 # =============================================================================
@@ -46,6 +47,7 @@ def roundGrade(grades):
 
 # =============================================================================
 # 2: Final Grade function:
+    # Lachlan John Houston (s214593)
     
 # A function that takes a matrix input and calculates a final grade based on some defined rules
 # =============================================================================
@@ -102,6 +104,7 @@ def computeFinalGrades(grades):
 
 # =============================================================================
 # 3: Grades Plot function:
+    # Frederik Ravnborg
     
 # A function that plots two different plots, one visualising final grade scores across all students in data set,
 # other visualising grade data over assignments, across all students
@@ -194,6 +197,7 @@ def gradesPlot(grades):
 
 # =============================================================================
 # 4: Main Script
+    # Frederik Ravnborg
 
 # A loop that contains an user interactive menu, that starts with loading specified data, afterwards a choice between loading new data, checking for errors in data,
 # generate plots over data, display grade lists sorted alphabetically, and lastly an option to quit the program
@@ -201,6 +205,11 @@ def gradesPlot(grades):
 
 # Initialize by asking for file name of data
 sevenstepGrades = np.array([-3,0,2,4,7,10,12])
+
+# =============================================================================
+# Data Load funktion:
+    # Frederik Ravnborg
+# =============================================================================
 
 def dataLoad():
     while True:
@@ -271,6 +280,12 @@ while True:
         grades = grades.reset_index(drop=True)
         grades = np.array(grades)
         shapeData = np.shape(grades)
+
+# =============================================================================
+# Checking/Removal of Errors
+    # Lachlan John Houston (s214593)
+
+# =============================================================================
         
     # User can see errors in data file, and can choose whether to delete data with error or not
     elif userInput == "2" or userInput == "check for errors" or userInput == "check for data errors":
@@ -370,12 +385,18 @@ while True:
             elif anyErrors == False:
                 print("\nThere are no errors in the data")
                 break
-                
+            
     # User is shown plots
     elif userInput == "3" or userInput == "plots" or userInput == "generate plots":
         gradesPlot(grades)
         print("Two plots are now showing. The first plot is a bar chart visualizing how many students got the different grades as their final grade.")
         print("The second plot shows all the grades given for each assignment. The orange line represents the mean grade of each assignment.")
+    
+# =============================================================================
+# Grades List
+    # Frederik Ravnborg
+#
+# =============================================================================
     
     # User is shown a list over grades alphabetically sorted, and with final grade given
     elif userInput == "4" or userInput == "display list" or userInput == "display list of grades":
