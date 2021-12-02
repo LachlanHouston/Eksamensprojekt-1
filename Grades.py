@@ -49,7 +49,8 @@ def roundGrade(grades):
 # 2: Final Grade function:
     # Lachlan John Houston (s214593)
     
-# A function that takes a matrix input and calculates a final grade based on some defined rules
+# A function that takes a matrix as input and calculates a final grade based on some defined rules
+# The function returns an array with the final grade for each student
 # =============================================================================
 def computeFinalGrades(grades):
     
