@@ -1,11 +1,11 @@
 """
 Exam Project - Program for grading students
 (02631) Introduction to Programming and Data processing - Program til karaktergivning af studerende
-By: Lachlan John Houston (s214593) og Frederik Ravnborg (s204078)
+By: Lachlan John Houston (s214593) og Frederik Funch Funch Ravnborg (s204078)
 Due: 03/12/2021
 """
 
-# Initialisation of packages
+# Initialization of packages
 import numpy as np
 from numpy import random
 
@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 # 1: Round Grade function:
     # Lachlan John Houston (s214593)
     
-# A function that takes a vector of grades as input and rounds them to their closest valid grade
+# A function that takes an array of grades as input and returns an array with the rounded version of those grades. 
 # =============================================================================
 def roundGrade(grades):
     
@@ -104,10 +104,10 @@ def computeFinalGrades(grades):
 
 # =============================================================================
 # 3: Grades Plot function:
-    # Frederik Ravnborg
+    # Frederik Funch Ravnborg (s204078)
     
 # A function that plots two different plots, one visualising final grade scores across all students in data set,
-# other visualising grade data over assignments, across all students
+# and another plot visualizing grade data over assignments, across all students. This function does not return anything.
 # =============================================================================
 def gradesPlot(grades):
 
@@ -197,7 +197,7 @@ def gradesPlot(grades):
 
 # =============================================================================
 # 4: Main Script
-    # Frederik Ravnborg
+    # Frederik Funch Ravnborg (s204078)
 
 # A loop that contains an user interactive menu, that starts with loading specified data, afterwards a choice between loading new data, checking for errors in data,
 # generate plots over data, display grade lists sorted alphabetically, and lastly an option to quit the program
@@ -207,10 +207,12 @@ def gradesPlot(grades):
 sevenstepGrades = np.array([-3,0,2,4,7,10,12])
 
 # =============================================================================
-# Data Load funktion:
-    # Frederik Ravnborg
+# Data Load function:
+    # Frederik Funch Ravnborg (s204078)
 # =============================================================================
 
+# An additional function that imports data by asking the user for a file name while handling errors.
+# The Data Load function takes no argument, and it returns the data from the csv-file as a pandas matrix.
 def dataLoad():
     while True:
         print('\nPlease input a file name')
@@ -394,7 +396,7 @@ while True:
     
 # =============================================================================
 # Grades List
-    # Frederik Ravnborg
+    # Frederik Funch Ravnborg (s204078)
 #
 # =============================================================================
     
