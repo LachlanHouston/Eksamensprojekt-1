@@ -207,7 +207,6 @@ def dataLoad():
         
             else:
                 # Split the data file into seperated rows and collumns, and load into a numpy array
-                # pdGrades = pd.read_csv(filename, delimiter=",")
                 pdGrades = pd.read_csv(filename)
                 print("\nA data file has been loaded containing", np.shape(pdGrades)[0], "students and", np.shape(pdGrades)[1]-2, "assignments.")
                 return pdGrades
